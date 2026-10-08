@@ -1,299 +1,710 @@
 {% extends "base.html" %}
-{% load static %}
 
-{% block title %}Contact UAE Care | Home Maintenance Services{% endblock %}
+{% block title %}
+Contact {{ settings.company_name|default:"Balaji Metal Coating LLC" }} | Dubai, UAE
+{% endblock %}
+
+{% block meta_description %}
+Contact {{ settings.company_name|default:"Balaji Metal Coating LLC" }} for professional metal coating and plating services in Dubai, UAE.
+{% endblock %}
+
+
+{% block extra_head %}
+<style>
+
+.contact-hero {
+    min-height: 430px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 85% 20%, rgba(244,185,66,.18), transparent 30%),
+        linear-gradient(135deg, #071A33 0%, #0D2748 55%, #071A33 100%);
+}
+
+.contact-hero::before {
+    content: "";
+    position: absolute;
+    width: 460px;
+    height: 460px;
+    right: -150px;
+    top: -160px;
+    border: 1px solid rgba(244,185,66,.22);
+    border-radius: 50%;
+}
+
+.contact-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+}
+
+.section-label {
+    color: #F4B942;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.contact-hero h1 {
+    color: #fff;
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 20px;
+}
+
+.contact-hero p {
+    color: rgba(255,255,255,.82);
+    font-size: 18px;
+    line-height: 1.8;
+    max-width: 700px;
+}
+
+.contact-section {
+    padding: 85px 0;
+    background: #fff;
+}
+
+.contact-info-card {
+    height: 100%;
+    padding: 35px;
+    border-radius: 20px;
+    background: #071A33;
+    color: #fff;
+    box-shadow: 0 18px 45px rgba(7,26,51,.12);
+}
+
+.contact-info-card h2 {
+    color: #fff;
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.contact-info-card > p {
+    color: rgba(255,255,255,.72);
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.contact-person {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+}
+
+.contact-person-name {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 3px;
+}
+
+.contact-person-designation {
+    color: rgba(255,255,255,.58);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.contact-person-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.person-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 13px;
+    border-radius: 7px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    transition: .2s ease;
+}
+
+.person-call {
+    background: #F4B942;
+    color: #071A33;
+}
+
+.person-call:hover {
+    background: #D99B21;
+    color: #071A33;
+}
+
+.person-whatsapp {
+    background: #20B26B;
+    color: #fff;
+}
+
+.person-whatsapp:hover {
+    background: #18945a;
+    color: #fff;
+}
+
+.contact-item {
+    display: flex;
+    gap: 15px;
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+}
+
+.contact-icon {
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(244,185,66,.15);
+    color: #F4B942;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 18px;
+}
+
+.contact-item small {
+    display: block;
+    color: rgba(255,255,255,.55);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.contact-item a,
+.contact-item span {
+    color: #fff;
+    text-decoration: none;
+    line-height: 1.7;
+}
+
+.contact-item a:hover {
+    color: #F4B942;
+}
+
+.contact-form-card {
+    background: #fff;
+    border: 1px solid #E7EAF0;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 15px 40px rgba(7,26,51,.07);
+}
+
+.contact-form-card h2 {
+    color: #071A33;
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.contact-form-card > p {
+    color: #6B7280;
+    line-height: 1.7;
+    margin-bottom: 28px;
+}
+
+.form-label-custom {
+    display: block;
+    color: #253247;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.form-control-custom,
+.form-select-custom {
+    width: 100%;
+    border: 1px solid #E0E4EA;
+    border-radius: 9px;
+    padding: 13px 14px;
+    color: #253247;
+    background: #fff;
+    outline: none;
+    font-size: 15px;
+}
+
+.form-control-custom:focus,
+.form-select-custom:focus {
+    border-color: #F4B942;
+    box-shadow: 0 0 0 3px rgba(244,185,66,.13);
+}
+
+.form-control-custom {
+    min-height: 50px;
+}
+
+textarea.form-control-custom {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.submit-btn {
+    width: 100%;
+    border: 0;
+    border-radius: 9px;
+    padding: 15px;
+    background: #F4B942;
+    color: #071A33;
+    font-weight: 800;
+    font-size: 16px;
+    transition: .25s ease;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background: #D99B21;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.location-section {
+    padding: 75px 0;
+    background: #F5F7FA;
+}
+
+.location-card {
+    background: #fff;
+    border: 1px solid #E7EAF0;
+    border-radius: 20px;
+    padding: 35px;
+    text-align: center;
+}
+
+.location-icon {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(244,185,66,.16);
+    color: #D99B21;
+    border-radius: 16px;
+    font-size: 26px;
+}
+
+.location-card h2 {
+    color: #071A33;
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.location-card p {
+    color: #6B7280;
+    line-height: 1.8;
+    margin-bottom: 0;
+}
+
+.contact-cta {
+    padding: 75px 20px;
+    text-align: center;
+    background: #F4B942;
+}
+
+.contact-cta h2 {
+    color: #071A33;
+    font-size: clamp(30px, 4vw, 42px);
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.contact-cta p {
+    color: #253247;
+    max-width: 680px;
+    margin: 0 auto 25px;
+    line-height: 1.8;
+}
+
+.cta-btn {
+    display: inline-block;
+    padding: 14px 28px;
+    border-radius: 8px;
+    background: #071A33;
+    color: #fff;
+    font-weight: 800;
+    text-decoration: none;
+    transition: .25s ease;
+}
+
+.cta-btn:hover {
+    background: #0D2748;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+
+    .contact-hero {
+        min-height: 400px;
+    }
+
+    .contact-hero h1 {
+        font-size: 42px;
+    }
+
+    .contact-hero p {
+        font-size: 16px;
+    }
+
+    .contact-section,
+    .location-section {
+        padding: 60px 18px;
+    }
+
+    .contact-info-card,
+    .contact-form-card {
+        padding: 25px;
+    }
+
+}
+
+</style>
+{% endblock %}
+
 
 {% block content %}
 
-<!-- HERO -->
-<section class="py-5 text-white"
-    style="
-    background:
-    linear-gradient(rgba(8,18,35,.82),rgba(8,18,35,.82)),
-    url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=85')
-    center/cover;
-    ">
-    <div class="container py-5">
-        <span class="badge bg-warning text-dark px-3 py-2 mb-3">
-            GET IN TOUCH
-        </span>
+<!-- =====================================================
+     HERO
+===================================================== -->
 
-        <h1 class="display-4 fw-bold">
-            Contact UAE Care
-        </h1>
+<section class="contact-hero">
 
-        <p class="lead mt-3 mb-0" style="max-width:700px;">
-            Need a repair, maintenance service or free quote?
-            Our team is ready to help.
-        </p>
+    <div class="container">
+
+        <div class="contact-hero-content">
+
+            <div class="section-label mb-3">
+                GET IN TOUCH
+            </div>
+
+            <h1>
+                Contact {{ settings.company_name|default:"Balaji Metal Coating LLC" }}
+            </h1>
+
+            <p>
+                Have a metal coating or plating requirement?
+                Contact our team in Dubai, UAE.
+            </p>
+
+        </div>
+
     </div>
+
 </section>
 
 
-<!-- CONTACT SECTION -->
-<section class="py-5">
+<!-- =====================================================
+     CONTACT SECTION
+===================================================== -->
+
+<section class="contact-section">
+
     <div class="container">
 
-        <div class="row g-5">
+        <div class="row g-5 align-items-stretch">
 
-            <!-- CONTACT INFO -->
+            <!-- CONTACT INFORMATION -->
+
             <div class="col-lg-5">
 
-                <span class="text-warning fw-bold">
-                    CONTACT INFORMATION
-                </span>
+                <div class="contact-info-card">
 
-                <h2 class="fw-bold mt-2 mb-4">
-                    We're Here to Help
-                </h2>
-
-                <p class="text-muted mb-4">
-                    Contact UAE Care for professional home maintenance,
-                    technical services and property solutions.
-                </p>
-
-
-                {% if settings %}
-
-                <!-- PHONE -->
-                {% if settings.phone %}
-                <div class="d-flex mb-4">
-                    <div class="bg-warning-subtle rounded-circle
-                                d-flex align-items-center
-                                justify-content-center"
-                         style="width:50px;height:50px;">
-                        📞
+                    <div class="section-label mb-3">
+                        CONTACT INFORMATION
                     </div>
 
-                    <div class="ms-3">
-                        <small class="text-muted">Call Us</small>
+                    <h2>
+                        Let's Discuss Your Requirement
+                    </h2>
 
-                        <div>
-                            <a href="tel:{{ settings.phone }}"
-                               class="fw-bold text-dark text-decoration-none">
-                                {{ settings.phone }}
-                            </a>
+                    <p>
+                        Get in touch with
+                        {{ settings.company_name|default:"Balaji Metal Coating LLC" }}
+                        regarding your metal coating and plating requirements.
+                    </p>
+
+
+                    <!-- TEAM CONTACTS -->
+
+                    {% for member in team_members %}
+
+                    <div class="contact-person">
+
+                        <div class="contact-person-name">
+                            {{ member.name }}
                         </div>
-                    </div>
-                </div>
-                {% endif %}
 
-
-                <!-- WHATSAPP -->
-                {% if settings.whatsapp %}
-                <div class="d-flex mb-4">
-                    <div class="bg-success-subtle rounded-circle
-                                d-flex align-items-center
-                                justify-content-center"
-                         style="width:50px;height:50px;">
-                        💬
-                    </div>
-
-                    <div class="ms-3">
-                        <small class="text-muted">WhatsApp</small>
-
-                        <div>
-                            <a href="https://wa.me/{{ settings.whatsapp }}"
-                               target="_blank"
-                               class="fw-bold text-dark text-decoration-none">
-                                Chat on WhatsApp
-                            </a>
+                        <div class="contact-person-designation">
+                            {{ member.designation }}
                         </div>
+
+                        {% if member.phone %}
+
+                        <div class="contact-person-actions">
+
+                            <a
+                                href="tel:{{ member.phone|cut:' '|cut:'-' }}"
+                                class="person-btn person-call"
+                            >
+                                ☎ Call
+                            </a>
+
+
+                            {% if forloop.first %}
+
+                            <a
+                                href="https://wa.me/{{ member.phone|cut:'+'|cut:' '|cut:'-' }}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="person-btn person-whatsapp"
+                            >
+                                WhatsApp
+                            </a>
+
+                            {% endif %}
+
+                        </div>
+
+                        {% endif %}
+
                     </div>
-                </div>
-                {% endif %}
+
+                    {% endfor %}
 
 
-                <!-- EMAIL -->
-                {% if settings.email %}
-                <div class="d-flex mb-4">
-                    <div class="bg-warning-subtle rounded-circle
-                                d-flex align-items-center
-                                justify-content-center"
-                         style="width:50px;height:50px;">
-                        ✉️
-                    </div>
+                    <!-- COMPANY EMAIL -->
 
-                    <div class="ms-3">
-                        <small class="text-muted">Email</small>
+                    {% if settings and settings.email %}
+
+                    <div class="contact-item">
+
+                        <div class="contact-icon">
+                            @
+                        </div>
 
                         <div>
-                            <a href="mailto:{{ settings.email }}"
-                               class="fw-bold text-dark text-decoration-none">
+
+                            <small>
+                                Email
+                            </small>
+
+                            <a href="mailto:{{ settings.email }}">
                                 {{ settings.email }}
                             </a>
+
                         </div>
-                    </div>
-                </div>
-                {% endif %}
 
-
-                <!-- ADDRESS -->
-                {% if settings.address %}
-                <div class="d-flex mb-4">
-                    <div class="bg-warning-subtle rounded-circle
-                                d-flex align-items-center
-                                justify-content-center"
-                         style="width:50px;height:50px;">
-                        📍
                     </div>
 
-                    <div class="ms-3">
-                        <small class="text-muted">Address</small>
+                    {% endif %}
 
-                        <div class="fw-bold">
-                            {{ settings.address }}
+
+                    <!-- COMPANY ADDRESS -->
+
+                    {% if settings and settings.address %}
+
+                    <div class="contact-item">
+
+                        <div class="contact-icon">
+                            ●
                         </div>
-                    </div>
-                </div>
-                {% endif %}
 
+                        <div>
 
-                <!-- HOURS -->
-                {% if settings.opening_hours %}
-                <div class="d-flex mb-4">
-                    <div class="bg-warning-subtle rounded-circle
-                                d-flex align-items-center
-                                justify-content-center"
-                         style="width:50px;height:50px;">
-                        🕒
-                    </div>
+                            <small>
+                                Location
+                            </small>
 
-                    <div class="ms-3">
-                        <small class="text-muted">Opening Hours</small>
+                            <span>
+                                {{ settings.address }}
+                            </span>
 
-                        <div class="fw-bold">
-                            {{ settings.opening_hours }}
                         </div>
-                    </div>
-                </div>
-                {% endif %}
 
-                {% endif %}
+                    </div>
+
+                    {% endif %}
+
+                </div>
 
             </div>
 
 
-            <!-- CONTACT FORM -->
+            <!-- ENQUIRY FORM -->
+
             <div class="col-lg-7">
 
-                <div class="card border-0 shadow-lg rounded-4">
+                <div class="contact-form-card">
 
-                    <div class="card-body p-4 p-md-5">
+                    <div class="section-label">
+                        SEND AN ENQUIRY
+                    </div>
 
-                        <h3 class="fw-bold mb-2">
-                            Send Us a Message
-                        </h3>
+                    <h2>
+                        Tell Us What You Need
+                    </h2>
 
-                        <p class="text-muted mb-4">
-                            Tell us what you need and our team will get
-                            back to you.
-                        </p>
-
-
-                        <form method="POST"
-                              action="{% url 'request_quote' %}">
-
-                            {% csrf_token %}
-
-                            <div class="row g-3">
-
-                                <div class="col-md-6">
-                                    <label class="form-label fw-semibold">
-                                        Your Name
-                                    </label>
-
-                                    <input type="text"
-                                           name="name"
-                                           class="form-control form-control-lg"
-                                           placeholder="Enter your name"
-                                           required>
-                                </div>
+                    <p>
+                        Share your metal coating requirement and
+                        contact details. Our team will receive your enquiry.
+                    </p>
 
 
-                                <div class="col-md-6">
-                                    <label class="form-label fw-semibold">
-                                        Phone Number
-                                    </label>
+                    <form
+                        method="POST"
+                        action="{% url 'request_quote' %}"
+                    >
 
-                                    <input type="tel"
-                                           name="phone"
-                                           class="form-control form-control-lg"
-                                           placeholder="Enter phone number"
-                                           required>
-                                </div>
+                        {% csrf_token %}
 
+                        <div class="row g-3">
 
-                                <div class="col-12">
-                                    <label class="form-label fw-semibold">
-                                        Email Address
-                                    </label>
+                            <div class="col-md-6">
 
-                                    <input type="email"
-                                           name="email"
-                                           class="form-control form-control-lg"
-                                           placeholder="Enter your email"
-                                           required>
-                                </div>
+                                <label
+                                    for="contactName"
+                                    class="form-label-custom"
+                                >
+                                    Your Name
+                                </label>
 
-
-                                <div class="col-12">
-                                    <label class="form-label fw-semibold">
-                                        Service Required
-                                    </label>
-
-                                    <select name="service"
-                                            class="form-select form-select-lg"
-                                            required>
-
-                                        <option value="">
-                                            Select a service
-                                        </option>
-
-                                        <option>AC Services</option>
-                                        <option>Plumbing</option>
-                                        <option>Electrical</option>
-                                        <option>Handyman</option>
-                                        <option>Painting</option>
-                                        <option>Carpentry</option>
-                                        <option>Waterproofing</option>
-                                        <option>Renovation</option>
-                                        <option>General Maintenance</option>
-                                        <option>Other</option>
-
-                                    </select>
-                                </div>
-
-
-                                <div class="col-12">
-                                    <label class="form-label fw-semibold">
-                                        Message
-                                    </label>
-
-                                    <textarea name="message"
-                                              rows="5"
-                                              class="form-control"
-                                              placeholder="Tell us about your requirement..."></textarea>
-                                </div>
-
-
-                                <div class="col-12">
-
-                                    <button type="submit"
-                                            class="btn btn-warning btn-lg
-                                                   fw-bold w-100">
-
-                                        Request a Free Quote →
-
-                                    </button>
-
-                                </div>
+                                <input
+                                    type="text"
+                                    id="contactName"
+                                    name="name"
+                                    class="form-control-custom"
+                                    placeholder="Enter your name"
+                                    autocomplete="name"
+                                    required
+                                >
 
                             </div>
 
-                        </form>
 
-                    </div>
+                            <div class="col-md-6">
+
+                                <label
+                                    for="contactPhone"
+                                    class="form-label-custom"
+                                >
+                                    Phone Number
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="contactPhone"
+                                    name="phone"
+                                    class="form-control-custom"
+                                    placeholder="Enter phone number"
+                                    autocomplete="tel"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="col-12">
+
+                                <label
+                                    for="contactEmail"
+                                    class="form-label-custom"
+                                >
+                                    Email Address
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="contactEmail"
+                                    name="email"
+                                    class="form-control-custom"
+                                    placeholder="Enter your email"
+                                    autocomplete="email"
+                                >
+
+                            </div>
+
+
+                            <div class="col-12">
+
+                                <label
+                                    for="contactService"
+                                    class="form-label-custom"
+                                >
+                                    Service Required
+                                </label>
+
+                                <select
+                                    id="contactService"
+                                    name="service"
+                                    class="form-select-custom"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Select a service
+                                    </option>
+
+                                    {% for service in services %}
+
+                                    <option value="{{ service.name }}">
+                                        {{ service.name }}
+                                    </option>
+
+                                    {% endfor %}
+
+                                    <option value="Other">
+                                        Other
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="col-12">
+
+                                <label
+                                    for="contactMessage"
+                                    class="form-label-custom"
+                                >
+                                    Message
+                                </label>
+
+                                <textarea
+                                    id="contactMessage"
+                                    name="message"
+                                    class="form-control-custom"
+                                    placeholder="Tell us about your metal coating requirement..."
+                                ></textarea>
+
+                            </div>
+
+
+                            <div class="col-12">
+
+                                <button
+                                    type="submit"
+                                    class="submit-btn"
+                                >
+                                    Submit Enquiry →
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </form>
 
                 </div>
 
@@ -302,37 +713,95 @@
         </div>
 
     </div>
+
 </section>
 
 
-<!-- CTA -->
-<section class="py-5 bg-light">
+<!-- =====================================================
+     LOCATION
+===================================================== -->
 
-    <div class="container text-center">
+{% if settings and settings.address %}
 
-        <h2 class="fw-bold">
-            Need Urgent Assistance?
+<section class="location-section">
+
+    <div class="container">
+
+        <div class="location-card">
+
+            <div class="location-icon">
+                ●
+            </div>
+
+            <div class="section-label mb-2">
+                OUR LOCATION
+            </div>
+
+            <h2>
+                Dubai, UAE
+            </h2>
+
+            <p>
+                {{ settings.address }}
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endif %}
+
+
+<!-- =====================================================
+     CTA
+===================================================== -->
+
+<section class="contact-cta">
+
+    <div class="container">
+
+        <h2>
+            Ready to Discuss Your Requirement?
         </h2>
 
-        <p class="text-muted">
-            Call us or contact us through WhatsApp for quick assistance.
+        <p>
+            Contact
+            {{ settings.company_name|default:"Balaji Metal Coating LLC" }}
+            for your metal coating or plating requirement.
         </p>
+
 
         <div class="d-flex justify-content-center gap-3 flex-wrap">
 
-            {% if settings.phone %}
-            <a href="tel:{{ settings.phone }}"
-               class="btn btn-dark btn-lg px-4">
-                📞 Call Now
+            {% if team_members %}
+
+            {% with member=team_members.0 %}
+
+            {% if member.phone %}
+
+            <a
+                href="tel:{{ member.phone|cut:' '|cut:'-' }}"
+                class="cta-btn"
+            >
+                Call Kushal
             </a>
+
+
+            <a
+                href="https://wa.me/{{ member.phone|cut:'+'|cut:' '|cut:'-' }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="cta-btn"
+            >
+                WhatsApp Kushal
+            </a>
+
             {% endif %}
 
-            {% if settings.whatsapp %}
-            <a href="https://wa.me/{{ settings.whatsapp }}"
-               target="_blank"
-               class="btn btn-success btn-lg px-4">
-                💬 WhatsApp
-            </a>
+            {% endwith %}
+
             {% endif %}
 
         </div>

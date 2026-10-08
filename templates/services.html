@@ -1,58 +1,91 @@
 {% extends "base.html" %}
-{% load static %}
 
 {% block title %}
-UAE CARE | Home Maintenance Services Dubai
+{{ settings.company_name|default:"Balaji Metal Coating LLC" }} | Metal Coating Services Dubai
 {% endblock %}
 
 {% block meta_description %}
-Professional AC, plumbing, electrical, handyman, renovation and property maintenance services across Dubai.
+{{ settings.company_name|default:"Balaji Metal Coating LLC" }} provides metal coating and plating services in Dubai, UAE, including gold, silver, copper and nickel plating.
 {% endblock %}
+
 
 {% block extra_head %}
 <style>
+
 .services-hero {
-    min-height: 430px;
+    min-height: 460px;
     display: flex;
     align-items: center;
     position: relative;
+    overflow: hidden;
     background:
-        linear-gradient(90deg, rgba(5,12,20,.88), rgba(5,12,20,.55)),
-        url("https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1800&q=85")
-        center/cover no-repeat;
+        radial-gradient(circle at 85% 20%, rgba(244,185,66,.18), transparent 30%),
+        linear-gradient(135deg, #071A33 0%, #0D2748 55%, #071A33 100%);
+}
+
+.services-hero::before {
+    content: "";
+    position: absolute;
+    width: 440px;
+    height: 440px;
+    right: -140px;
+    top: -150px;
+    border: 1px solid rgba(244,185,66,.22);
+    border-radius: 50%;
+}
+
+.services-hero::after {
+    content: "";
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    right: 100px;
+    bottom: -160px;
+    border: 1px solid rgba(244,185,66,.15);
+    border-radius: 50%;
 }
 
 .services-hero-content {
     max-width: 850px;
-    color: #fff;
-}
-
-.services-hero h1 {
-    font-size: clamp(38px, 5vw, 64px);
-    font-weight: 800;
-    line-height: 1.05;
-    margin-bottom: 20px;
-}
-
-.services-hero p {
-    font-size: 18px;
-    line-height: 1.7;
-    color: rgba(255,255,255,.85);
-    max-width: 700px;
+    position: relative;
+    z-index: 2;
 }
 
 .section-label {
-    color: #c99a45;
+    color: #F4B942;
     font-size: 13px;
     font-weight: 800;
-    text-transform: uppercase;
     letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.services-hero h1 {
+    color: #fff;
+    font-size: clamp(40px, 5vw, 68px);
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 22px;
+}
+
+.services-hero p {
+    color: rgba(255,255,255,.82);
+    font-size: 18px;
+    line-height: 1.8;
+    max-width: 720px;
 }
 
 .section-title {
+    color: #071A33;
     font-size: clamp(30px, 4vw, 46px);
     font-weight: 800;
-    color: #101820;
+    line-height: 1.15;
+}
+
+.services-intro {
+    max-width: 760px;
+    margin: auto;
+    color: #6B7280;
+    line-height: 1.8;
 }
 
 .service-search-wrap {
@@ -63,107 +96,134 @@ Professional AC, plumbing, electrical, handyman, renovation and property mainten
 
 .service-search-box {
     background: #fff;
+    border: 1px solid #E7EAF0;
     border-radius: 18px;
     padding: 20px;
-    box-shadow: 0 15px 45px rgba(0,0,0,.12);
+    box-shadow: 0 15px 45px rgba(7,26,51,.12);
 }
 
 .service-search-box input {
+    width: 100%;
     border: 0;
     outline: none;
-    width: 100%;
-    font-size: 17px;
     padding: 12px 15px;
+    color: #253247;
+    font-size: 17px;
 }
 
-.filter-btn {
-    border: 1px solid #ddd;
-    background: #fff;
-    color: #222;
-    padding: 10px 18px;
-    border-radius: 30px;
-    font-weight: 600;
-    transition: .25s;
+.service-search-box input::placeholder {
+    color: #9CA3AF;
 }
 
-.filter-btn:hover,
-.filter-btn.active {
-    background: #101820;
-    color: #fff;
-    border-color: #101820;
+.service-count {
+    color: #6B7280;
+    font-weight: 700;
 }
 
 .service-card {
     height: 100%;
-    background: #fff;
-    border: 1px solid #eee;
-    border-radius: 18px;
     overflow: hidden;
-    transition: .3s;
-    box-shadow: 0 8px 25px rgba(0,0,0,.05);
+    background: #fff;
+    border: 1px solid #E7EAF0;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(7,26,51,.05);
+    transition: .3s ease;
 }
 
 .service-card:hover {
-    transform: translateY(-7px);
-    box-shadow: 0 18px 40px rgba(0,0,0,.12);
+    transform: translateY(-8px);
+    border-color: rgba(244,185,66,.55);
+    box-shadow: 0 20px 45px rgba(7,26,51,.13);
 }
 
 .service-image {
-    height: 220px;
+    height: 250px;
     overflow: hidden;
-    background: #f2f2f2;
+    background: #F5F7FA;
 }
 
 .service-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: .4s;
+    transition: .5s ease;
 }
 
 .service-card:hover .service-image img {
     transform: scale(1.06);
 }
 
-.service-content {
-    padding: 25px;
+.service-image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(circle at 30% 30%, rgba(244,185,66,.18), transparent 35%),
+        linear-gradient(135deg, #071A33, #0D2748);
+    color: #F4B942;
+    font-size: 52px;
+    font-weight: 800;
 }
 
-.service-content h3 {
-    font-size: 21px;
-    font-weight: 750;
+.service-content {
+    padding: 27px;
+}
+
+.service-number {
+    color: #D99B21;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
     margin-bottom: 10px;
 }
 
-.service-content p {
-    color: #666;
-    line-height: 1.7;
+.service-content h3 {
+    color: #071A33;
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 12px;
 }
 
-.service-price {
-    color: #c28d36;
-    font-size: 20px;
-    font-weight: 800;
+.service-content p {
+    color: #6B7280;
+    line-height: 1.75;
+    margin-bottom: 20px;
 }
 
 .service-link {
     display: inline-flex;
     align-items: center;
-    gap: 7px;
-    color: #101820;
-    font-weight: 700;
+    gap: 8px;
+    color: #071A33;
+    font-weight: 800;
     text-decoration: none;
+    transition: .25s ease;
 }
 
 .service-link:hover {
-    color: #c28d36;
+    color: #D99B21;
+    gap: 12px;
+}
+
+.services-note {
+    background: #F5F7FA;
+    border-left: 4px solid #F4B942;
+    border-radius: 10px;
+    padding: 20px 24px;
+    color: #596579;
+    line-height: 1.8;
 }
 
 .services-cta {
-    background: #101820;
+    background:
+        radial-gradient(circle at 90% 20%, rgba(244,185,66,.14), transparent 30%),
+        #071A33;
     color: #fff;
-    border-radius: 25px;
+    border-radius: 24px;
     padding: 55px;
+    overflow: hidden;
 }
 
 .services-cta h2 {
@@ -173,38 +233,40 @@ Professional AC, plumbing, electrical, handyman, renovation and property mainten
 
 .services-cta p {
     color: rgba(255,255,255,.75);
-    line-height: 1.7;
+    line-height: 1.8;
 }
 
 .btn-main {
-    background: #c99a45;
-    color: #fff;
-    border: 0;
-    padding: 14px 25px;
-    border-radius: 8px;
-    font-weight: 700;
-    text-decoration: none;
     display: inline-block;
+    padding: 14px 25px;
+    background: #F4B942;
+    color: #071A33;
+    border-radius: 8px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: .25s ease;
 }
 
 .btn-main:hover {
-    background: #b48638;
+    background: #D99B21;
     color: #fff;
+    transform: translateY(-2px);
 }
 
 .btn-outline-light-custom {
-    border: 1px solid rgba(255,255,255,.5);
-    color: #fff;
+    display: inline-block;
     padding: 13px 24px;
+    border: 1px solid rgba(255,255,255,.55);
     border-radius: 8px;
+    color: #fff;
     font-weight: 700;
     text-decoration: none;
-    display: inline-block;
+    transition: .25s ease;
 }
 
 .btn-outline-light-custom:hover {
     background: #fff;
-    color: #101820;
+    color: #071A33;
 }
 
 .no-results {
@@ -213,66 +275,104 @@ Professional AC, plumbing, electrical, handyman, renovation and property mainten
     padding: 60px 20px;
 }
 
+.no-results h4 {
+    color: #071A33;
+    font-weight: 800;
+}
+
 @media (max-width: 768px) {
+
     .services-hero {
-        min-height: 380px;
+        min-height: 410px;
     }
 
     .services-hero h1 {
         font-size: 42px;
     }
 
-    .services-cta {
-        padding: 35px 25px;
+    .services-hero p {
+        font-size: 16px;
+    }
+
+    .service-search-wrap {
+        margin-top: -30px;
     }
 
     .service-image {
-        height: 200px;
+        height: 220px;
+    }
+
+    .services-cta {
+        padding: 35px 25px;
     }
 }
+
 </style>
 {% endblock %}
 
 
 {% block content %}
 
-<!-- HERO -->
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
 <section class="services-hero">
+
     <div class="container">
+
         <div class="services-hero-content">
 
             <div class="section-label mb-3">
-                UAE CARE SERVICES
+                {{ settings.company_name|default:"BALAJI METAL COATING LLC" }}
             </div>
 
             <h1>
-                Complete Home Maintenance Services
+                Metal Coating &<br>
+                Plating Services
             </h1>
 
             <p>
-                Reliable AC, plumbing, electrical, handyman, cleaning,
-                renovation and property maintenance services across Dubai.
+                Professional metal coating and plating solutions for
+                different metal finishing requirements in Dubai, UAE.
             </p>
 
             <div class="mt-4">
-                <a href="{% url 'request_quote' %}" class="btn-main me-2">
-                    Request a Quote
+
+                <a
+                    href="{% url 'request_quote' %}"
+                    class="btn-main me-2"
+                >
+                    Send Enquiry
                 </a>
 
-                {% if settings %}
-                <a href="tel:{{ settings.phone }}" class="btn-outline-light-custom">
+                {% if settings and settings.phone %}
+
+                <a
+                    href="tel:{{ settings.phone|cut:' '|cut:'-' }}"
+                    class="btn-outline-light-custom"
+                >
                     Call Now
                 </a>
+
                 {% endif %}
+
             </div>
 
         </div>
+
     </div>
+
 </section>
 
 
-<!-- SEARCH -->
+<!-- =====================================================
+     SEARCH
+===================================================== -->
+
 <section class="service-search-wrap">
+
     <div class="container">
 
         <div class="service-search-box">
@@ -280,17 +380,25 @@ Professional AC, plumbing, electrical, handyman, renovation and property mainten
             <div class="row align-items-center">
 
                 <div class="col-lg-8">
+
                     <input
                         type="text"
                         id="serviceSearch"
-                        placeholder="Search for a service..."
+                        placeholder="Search a coating or plating service..."
+                        aria-label="Search metal coating services"
                     >
+
                 </div>
 
                 <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
-                    <strong id="serviceCount">
+
+                    <span
+                        class="service-count"
+                        id="serviceCount"
+                    >
                         {{ services|length }} services available
-                    </strong>
+                    </span>
+
                 </div>
 
             </div>
@@ -298,61 +406,36 @@ Professional AC, plumbing, electrical, handyman, renovation and property mainten
         </div>
 
     </div>
+
 </section>
 
 
-<!-- SERVICES -->
+<!-- =====================================================
+     SERVICES
+===================================================== -->
+
 <section class="py-5">
+
     <div class="container py-5">
 
-        <div class="text-center mb-4">
+        <div class="text-center mb-5">
+
             <div class="section-label mb-2">
-                WHAT WE DO
+                OUR SERVICES
             </div>
 
-            <h2 class="section-title">
-                Our Services
+            <h2 class="section-title mb-3">
+                Our Metal Coating Services
             </h2>
 
-            <p class="text-muted mx-auto" style="max-width:700px;">
-                From urgent repairs to complete property maintenance,
-                UAE CARE provides professional solutions for homes,
-                apartments, villas and offices.
+            <p class="services-intro">
+                Explore our available metal coating and plating services.
+                Select a service to view its details and submit an enquiry.
             </p>
-        </div>
-
-
-        <!-- FILTERS -->
-        <div class="d-flex flex-wrap justify-content-center gap-2 mb-5">
-
-            <button class="filter-btn active" data-filter="all">
-                All Services
-            </button>
-
-            <button class="filter-btn" data-filter="ac">
-                AC & Cooling
-            </button>
-
-            <button class="filter-btn" data-filter="plumbing">
-                Plumbing
-            </button>
-
-            <button class="filter-btn" data-filter="electrical">
-                Electrical
-            </button>
-
-            <button class="filter-btn" data-filter="handyman">
-                Handyman
-            </button>
-
-            <button class="filter-btn" data-filter="renovation">
-                Renovation
-            </button>
 
         </div>
 
 
-        <!-- SERVICE GRID -->
         <div class="row g-4" id="serviceGrid">
 
             {% for service in services %}
@@ -360,6 +443,7 @@ Professional AC, plumbing, electrical, handyman, renovation and property mainten
             <div
                 class="col-md-6 col-lg-4 service-item"
                 data-name="{{ service.name|lower }}"
+                data-description="{{ service.short_description|default:service.description|lower }}"
             >
 
                 <div class="service-card">
@@ -367,17 +451,19 @@ Professional AC, plumbing, electrical, handyman, renovation and property mainten
                     <div class="service-image">
 
                         {% if service.image %}
+
                         <img
-                            src="{{ service.image }}"
-                            alt="{{ service.name }}"
+                            src="{{ service.image.url }}"
+                            alt="{{ service.name }} - {{ settings.company_name|default:'Balaji Metal Coating LLC' }}"
                             loading="lazy"
                         >
+
                         {% else %}
-                        <img
-                            src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=900&q=80"
-                            alt="{{ service.name }}"
-                            loading="lazy"
-                        >
+
+                        <div class="service-image-placeholder">
+                            MC
+                        </div>
+
                         {% endif %}
 
                     </div>
@@ -385,19 +471,34 @@ Professional AC, plumbing, electrical, handyman, renovation and property mainten
 
                     <div class="service-content">
 
+                        <div class="service-number">
+                            SERVICE {{ forloop.counter|stringformat:"02d" }}
+                        </div>
+
                         <h3>
                             {{ service.name }}
                         </h3>
 
+
+                        {% if service.short_description %}
+
                         <p>
-                            {{ service.description|truncatewords:25 }}
+                            {{ service.short_description }}
                         </p>
 
+                        {% elif service.description %}
 
-                        {% if service.price %}
-                        <div class="service-price mb-3">
-                            From AED {{ service.price }}
-                        </div>
+                        <p>
+                            {{ service.description|truncatewords:28 }}
+                        </p>
+
+                        {% else %}
+
+                        <p>
+                            Metal coating and plating service by
+                            {{ settings.company_name|default:"Balaji Metal Coating LLC" }}.
+                        </p>
+
                         {% endif %}
 
 
@@ -405,7 +506,8 @@ Professional AC, plumbing, electrical, handyman, renovation and property mainten
                             href="{% url 'service_detail' service.slug %}"
                             class="service-link"
                         >
-                            View Service →
+                            View Service
+                            <span>→</span>
                         </a>
 
                     </div>
@@ -417,10 +519,15 @@ Professional AC, plumbing, electrical, handyman, renovation and property mainten
             {% empty %}
 
             <div class="col-12 text-center py-5">
-                <h4>No services available.</h4>
+
+                <h4 class="fw-bold">
+                    Services will appear here.
+                </h4>
+
                 <p class="text-muted">
-                    Please check back soon.
+                    Add active services from the admin panel.
                 </p>
+
             </div>
 
             {% endfor %}
@@ -428,25 +535,50 @@ Professional AC, plumbing, electrical, handyman, renovation and property mainten
         </div>
 
 
-        <!-- NO RESULTS -->
         <div class="no-results" id="noResults">
 
             <h4>
-                No services found
+                No matching service found
             </h4>
 
-            <p class="text-muted">
-                Try another service name.
+            <p class="text-muted mb-0">
+                Try searching for another coating or plating service.
             </p>
 
         </div>
 
     </div>
+
 </section>
 
 
-<!-- CTA -->
+<!-- =====================================================
+     SERVICE INFORMATION
+===================================================== -->
+
 <section class="pb-5">
+
+    <div class="container">
+
+        <div class="services-note">
+
+            <strong>Metal coating services in Dubai:</strong>
+            Our listed services can be managed and updated from the
+            website admin panel, including service descriptions and images.
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CTA
+===================================================== -->
+
+<section class="pb-5">
+
     <div class="container">
 
         <div class="services-cta">
@@ -456,16 +588,16 @@ Professional AC, plumbing, electrical, handyman, renovation and property mainten
                 <div class="col-lg-8">
 
                     <div class="section-label mb-2">
-                        NEED HELP?
+                        HAVE A REQUIREMENT?
                     </div>
 
                     <h2>
-                        Need a Reliable Maintenance Team?
+                        Need a Metal Coating Solution?
                     </h2>
 
                     <p class="mb-0">
-                        Tell us what you need and our team will help
-                        you find the right service for your property.
+                        Share your metal coating or plating requirement
+                        with us and our team can discuss the suitable service.
                     </p>
 
                 </div>
@@ -476,17 +608,20 @@ Professional AC, plumbing, electrical, handyman, renovation and property mainten
                         href="{% url 'request_quote' %}"
                         class="btn-main me-2"
                     >
-                        Get Free Quote
+                        Send Enquiry
                     </a>
 
-                    {% if settings %}
+                    {% if settings and settings.whatsapp %}
+
                     <a
-                        href="https://wa.me/{{ settings.whatsapp }}"
+                        href="https://wa.me/{{ settings.whatsapp|cut:'+'|cut:' '|cut:'-' }}"
                         class="btn-outline-light-custom"
                         target="_blank"
+                        rel="noopener noreferrer"
                     >
                         WhatsApp
                     </a>
+
                     {% endif %}
 
                 </div>
@@ -496,6 +631,7 @@ Professional AC, plumbing, electrical, handyman, renovation and property mainten
         </div>
 
     </div>
+
 </section>
 
 {% endblock %}
@@ -509,26 +645,41 @@ const searchInput = document.getElementById("serviceSearch");
 const serviceItems = document.querySelectorAll(".service-item");
 const noResults = document.getElementById("noResults");
 const serviceCount = document.getElementById("serviceCount");
-const filterButtons = document.querySelectorAll(".filter-btn");
+
+
+function updateServiceCount(count) {
+
+    serviceCount.textContent =
+        count === 1
+            ? "1 service available"
+            : count + " services available";
+
+}
 
 
 function filterServices() {
 
-    const searchValue = searchInput.value.toLowerCase().trim();
+    const searchValue =
+        searchInput.value.toLowerCase().trim();
 
     let visibleCount = 0;
 
+
     serviceItems.forEach(item => {
 
-        const name = item.dataset.name;
+        const name =
+            item.dataset.name || "";
 
-        const matchesSearch =
-            name.includes(searchValue);
+        const description =
+            item.dataset.description || "";
 
-        if (matchesSearch) {
+        const searchableText =
+            name + " " + description;
+
+
+        if (searchableText.includes(searchValue)) {
 
             item.style.display = "";
-
             visibleCount++;
 
         } else {
@@ -539,98 +690,25 @@ function filterServices() {
 
     });
 
-    serviceCount.textContent =
-        visibleCount + " services available";
+
+    updateServiceCount(visibleCount);
+
 
     noResults.style.display =
-        visibleCount === 0 ? "block" : "none";
+        visibleCount === 0
+            ? "block"
+            : "none";
+
 }
 
 
-searchInput.addEventListener("input", filterServices);
+if (searchInput) {
 
+    searchInput.addEventListener(
+        "input",
+        filterServices
+    );
 
-filterButtons.forEach(button => {
-
-    button.addEventListener("click", function() {
-
-        filterButtons.forEach(btn =>
-            btn.classList.remove("active")
-        );
-
-        this.classList.add("active");
-
-        const filter = this.dataset.filter;
-
-        serviceItems.forEach(item => {
-
-            const name = item.dataset.name;
-
-            let show = true;
-
-            if (filter !== "all") {
-
-                if (filter === "ac") {
-                    show =
-                        name.includes("ac") ||
-                        name.includes("air") ||
-                        name.includes("cool");
-                }
-
-                if (filter === "plumbing") {
-                    show = name.includes("plumb");
-                }
-
-                if (filter === "electrical") {
-                    show =
-                        name.includes("electric") ||
-                        name.includes("electrical");
-                }
-
-                if (filter === "handyman") {
-                    show = name.includes("handyman");
-                }
-
-                if (filter === "renovation") {
-                    show =
-                        name.includes("renovat") ||
-                        name.includes("kitchen") ||
-                        name.includes("bathroom") ||
-                        name.includes("tiling") ||
-                        name.includes("painting") ||
-                        name.includes("carpentry");
-                }
-
-            }
-
-            item.style.display = show ? "" : "none";
-
-        });
-
-        updateCount();
-
-    });
-
-});
-
-
-function updateCount() {
-
-    let count = 0;
-
-    serviceItems.forEach(item => {
-
-        if (item.style.display !== "none") {
-            count++;
-        }
-
-    });
-
-    serviceCount.textContent =
-        count + " services available";
-
-    noResults.style.display =
-        count === 0 ? "block" : "none";
 }
 
 </script>

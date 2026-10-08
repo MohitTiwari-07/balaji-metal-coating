@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>UAE CARE Admin Login</title>
+    <title>Balaji Metal Coating LLC | Admin Login</title>
 
     <style>
         * {
@@ -20,7 +20,7 @@
             width: 100%;
             min-height: 100%;
             font-family: Arial, Helvetica, sans-serif;
-            background: #f4f6fa;
+            background: #F5F7FA;
         }
 
         body {
@@ -42,25 +42,29 @@
         .login-card {
             width: 100%;
             max-width: 430px;
-            background: #ffffff;
-            border: 1px solid #e4e7ec;
+            background: #FFFFFF;
+            border: 1px solid #E7EAF0;
             border-radius: 18px;
             padding: 38px;
-            box-shadow: 0 20px 50px rgba(16, 24, 40, 0.10);
+            box-shadow: 0 20px 50px rgba(7, 26, 51, 0.10);
         }
 
         .logo {
-            width: 58px;
-            height: 58px;
+            width: 62px;
+            height: 62px;
             border-radius: 15px;
-            background: #101828;
-            color: #fdb022;
+            background: #071A33;
+            color: #F4B942;
+
             display: flex;
             align-items: center;
             justify-content: center;
+
             margin: 0 auto 16px;
-            font-size: 28px;
+
+            font-size: 24px;
             font-weight: 900;
+            letter-spacing: -1px;
         }
 
         .brand {
@@ -69,15 +73,23 @@
 
         .brand h1 {
             margin: 0;
-            color: #101828;
-            font-size: 26px;
+            color: #071A33;
+            font-size: 25px;
             font-weight: 900;
         }
 
         .brand p {
-            margin: 6px 0 28px;
-            color: #667085;
+            margin: 7px 0 28px;
+            color: #6B7280;
             font-size: 13px;
+        }
+
+        .gold-line {
+            width: 45px;
+            height: 3px;
+            background: #F4B942;
+            border-radius: 10px;
+            margin: 10px auto 0;
         }
 
         .login-title {
@@ -86,14 +98,16 @@
 
         .login-title h2 {
             margin: 0;
+            color: #071A33;
             font-size: 20px;
-            color: #101828;
+            font-weight: 800;
         }
 
         .login-title p {
             margin: 6px 0 0;
-            color: #667085;
+            color: #6B7280;
             font-size: 13px;
+            line-height: 1.5;
         }
 
         .form-row {
@@ -103,65 +117,89 @@
         .form-row label {
             display: block;
             margin-bottom: 7px;
+            color: #253247;
             font-size: 13px;
             font-weight: 700;
-            color: #344054;
         }
 
         .form-row input {
             width: 100%;
             height: 46px;
             padding: 0 14px;
-            border: 1px solid #d0d5dd;
+
+            border: 1px solid #E7EAF0;
             border-radius: 9px;
+
             outline: none;
+
+            color: #253247;
+            background: #FFFFFF;
+
             font-size: 14px;
-            background: #fff;
         }
 
         .form-row input:focus {
-            border-color: #101828;
-            box-shadow: 0 0 0 3px rgba(16, 24, 40, 0.08);
+            border-color: #F4B942;
+            box-shadow: 0 0 0 3px rgba(244, 185, 66, 0.16);
         }
 
         .submit-btn {
             width: 100%;
             height: 48px;
+
             border: 0;
             border-radius: 9px;
-            background: #101828;
-            color: #ffffff;
+
+            background: #071A33;
+            color: #FFFFFF;
+
             font-size: 14px;
             font-weight: 800;
+
             cursor: pointer;
             margin-top: 4px;
+
+            transition: 0.2s ease;
         }
 
         .submit-btn:hover {
-            background: #1d2939;
+            background: #0D2748;
         }
 
         .error-message {
-            background: #fef3f2;
-            border: 1px solid #fecdca;
-            color: #b42318;
+            background: #FEF3F2;
+            border: 1px solid #FECDCA;
+            color: #B42318;
+
             border-radius: 9px;
+
             padding: 11px 12px;
             margin-bottom: 18px;
+
             font-size: 13px;
         }
 
         .footer-text {
             text-align: center;
             margin-top: 24px;
-            color: #98a2b3;
+
+            color: #6B7280;
             font-size: 11px;
         }
 
         @media (max-width: 480px) {
+
+            .login-wrapper {
+                padding: 16px;
+            }
+
             .login-card {
                 padding: 28px 22px;
                 border-radius: 14px;
+            }
+
+            .brand h1 {
+                font-size: 22px;
             }
         }
     </style>
@@ -173,29 +211,61 @@
 
     <div class="login-card">
 
-        <div class="logo">U</div>
+        <div class="logo">
+            BM
+        </div>
 
         <div class="brand">
-            <h1>UAE CARE</h1>
-            <p>Technical Services & Facility Care</p>
+
+            <h1>
+                Balaji Metal Coating LLC
+            </h1>
+
+            <div class="gold-line"></div>
+
+            <p>
+                Metal Coating & Plating Solutions
+            </p>
+
         </div>
+
 
         <div class="login-title">
-            <h2>Admin Login</h2>
-            <p>Sign in to access the UAE CARE Operations Control Room.</p>
+
+            <h2>
+                Admin Login
+            </h2>
+
+            <p>
+                Sign in to manage your Balaji Metal Coating LLC website.
+            </p>
+
         </div>
 
+
         {% if form.errors %}
+
             <div class="error-message">
                 Please enter a correct username and password.
             </div>
+
         {% endif %}
 
-        <form method="post" action="{% url 'uae_admin:login' %}">
+
+        <form
+            method="post"
+            action="{% url 'uae_admin:login' %}"
+        >
+
             {% csrf_token %}
 
+
             <div class="form-row">
-                <label for="id_username">Username</label>
+
+                <label for="id_username">
+                    Username
+                </label>
+
                 <input
                     type="text"
                     name="username"
@@ -204,10 +274,16 @@
                     required
                     autofocus
                 >
+
             </div>
 
+
             <div class="form-row">
-                <label for="id_password">Password</label>
+
+                <label for="id_password">
+                    Password
+                </label>
+
                 <input
                     type="password"
                     name="password"
@@ -215,19 +291,33 @@
                     autocomplete="current-password"
                     required
                 >
+
             </div>
 
+
             {% if next %}
-                <input type="hidden" name="next" value="{{ next }}">
+
+                <input
+                    type="hidden"
+                    name="next"
+                    value="{{ next }}"
+                >
+
             {% endif %}
 
-            <button type="submit" class="submit-btn">
-                Sign In to Admin CMS
+
+            <button
+                type="submit"
+                class="submit-btn"
+            >
+                Sign In to Admin
             </button>
+
         </form>
 
+
         <div class="footer-text">
-            UAE CARE • Operations Control Room
+            Balaji Metal Coating LLC • Dubai, UAE
         </div>
 
     </div>

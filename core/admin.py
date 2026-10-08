@@ -3,285 +3,292 @@ from django.contrib import admin
 from .admin_site import uae_admin_site
 
 from .models import (
-    Service,
-    QuoteRequest,
     SiteSettings,
-    Project,
-    Testimonial,
-    MaintenancePackage,
-    ServiceArea,
-    FAQ,
-    Blog,
+    Service,
+    AboutSection,
+    TeamMember,
+    GalleryImage,
+    QuoteRequest,
 )
+
+
+class SiteSettingsAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "company_name",
+        "phone",
+        "email",
+        "address",
+        "updated_at",
+    )
+
+    search_fields = (
+        "company_name",
+        "phone",
+        "email",
+        "address",
+    )
+
+    readonly_fields = (
+        "updated_at",
+    )
+
+    fieldsets = (
+        (
+            "Company Information",
+            {
+                "fields": (
+                    "company_name",
+                    "tagline",
+                    "website",
+                )
+            }
+        ),
+        (
+            "Contact Information",
+            {
+                "fields": (
+                    "phone",
+                    "whatsapp",
+                    "alternate_phone",
+                    "email",
+                    "address",
+                )
+            }
+        ),
+        (
+            "Branding",
+            {
+                "fields": (
+                    "logo",
+                    "favicon",
+                )
+            }
+        ),
+        (
+            "Website Content",
+            {
+                "fields": (
+                    "about_text",
+                    "experience_text",
+                )
+            }
+        ),
+        (
+            "System Information",
+            {
+                "fields": (
+                    "updated_at",
+                )
+            }
+        ),
+    )
 
 
 class ServiceAdmin(admin.ModelAdmin):
 
     prepopulated_fields = {
-        'slug': ('name',)
+        "slug": ("name",)
     }
 
     list_display = (
-        'name',
-        'price',
-        'is_active',
+        "name",
+        "display_order",
+        "is_active",
     )
 
     list_filter = (
-        'is_active',
+        "is_active",
     )
 
     search_fields = (
-        'name',
-        'description',
-        'meta_title',
-        'meta_description',
+        "name",
+        "short_description",
+        "description",
+        "meta_title",
+        "meta_description",
     )
 
     list_editable = (
-        'price',
-        'is_active',
+        "display_order",
+        "is_active",
     )
 
     ordering = (
-        'name',
+        "display_order",
+        "name",
     )
 
     fieldsets = (
         (
-            'Service Information',
+            "Service Information",
             {
-                'fields': (
-                    'name',
-                    'slug',
-                    'description',
-                    'price',
-                    'image',
-                    'is_active',
+                "fields": (
+                    "name",
+                    "slug",
+                    "short_description",
+                    "description",
+                    "image",
+                    "display_order",
+                    "is_active",
                 )
             }
         ),
         (
-            'SEO Settings',
+            "SEO Settings",
             {
-                'fields': (
-                    'meta_title',
-                    'meta_description',
+                "fields": (
+                    "meta_title",
+                    "meta_description",
                 ),
-                'classes': ('collapse',),
+                "classes": ("collapse",),
             }
         ),
+    )
+
+
+class AboutSectionAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "title",
+        "experience_years",
+        "is_active",
+    )
+
+    list_filter = (
+        "is_active",
+    )
+
+    search_fields = (
+        "title",
+        "content",
+        "experience_title",
+    )
+
+    list_editable = (
+        "experience_years",
+        "is_active",
+    )
+
+
+class TeamMemberAdmin(admin.ModelAdmin):
+    list_display = ("name", "designation", "phone", "display_order", "is_active")
+    list_filter = ("designation", "is_active")
+    search_fields = ("name", "designation", "phone", "description")
+    list_editable = ("display_order", "is_active")
+    ordering = ("display_order", "name")
+
+    fieldsets = (
+        (
+            "Team Member Information",
+            {
+                "fields": (
+                    "name",
+                    "designation",
+                    "phone",
+                    "description",
+                    "image",
+                    "display_order",
+                    "is_active",
+                )
+            },
+        ),
+    )
+
+
+class GalleryImageAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "title",
+        "display_order",
+        "is_active",
+    )
+
+    list_filter = (
+        "is_active",
+    )
+
+    search_fields = (
+        "title",
+        "caption",
+    )
+
+    list_editable = (
+        "display_order",
+        "is_active",
+    )
+
+    ordering = (
+        "display_order",
+        "-id",
     )
 
 
 class QuoteRequestAdmin(admin.ModelAdmin):
 
     list_display = (
-        'name',
-        'service',
-        'phone',
-        'estimated_aed',
-        'urgency',
-        'status',
-        'dispatch_status',
-        'technician',
-        'created_at',
+        "name",
+        "service",
+        "phone",
+        "email",
+        "status",
+        "created_at",
     )
 
     list_filter = (
-        'urgency',
-        'status',
-        'dispatch_status',
-        'created_at',
+        "status",
+        "created_at",
     )
 
     search_fields = (
-        'name',
-        'phone',
-        'email',
-        'service',
-        'technician',
+        "name",
+        "phone",
+        "email",
+        "service",
+        "message",
     )
 
     list_editable = (
-        'estimated_aed',
-        'urgency',
-        'status',
-        'dispatch_status',
-        'technician',
+        "status",
     )
 
     readonly_fields = (
-        'created_at',
+        "created_at",
     )
 
     ordering = (
-        '-created_at',
+        "-created_at",
     )
 
 
-class SiteSettingsAdmin(admin.ModelAdmin):
-
-    list_display = (
-        'phone',
-        'whatsapp',
-        'email',
-        'address',
-    )
-
-
-class ProjectAdmin(admin.ModelAdmin):
-
-    list_display = (
-        'title',
-        'category',
-        'is_active',
-    )
-
-    list_filter = (
-        'category',
-        'is_active',
-    )
-
-    search_fields = (
-        'title',
-        'description',
-        'category',
-    )
-
-
-class TestimonialAdmin(admin.ModelAdmin):
-
-    list_display = (
-        'name',
-        'rating',
-        'is_active',
-    )
-
-    list_filter = (
-        'rating',
-        'is_active',
-    )
-
-    search_fields = (
-        'name',
-        'review',
-    )
-
-
-class MaintenancePackageAdmin(admin.ModelAdmin):
-
-    list_display = (
-        'name',
-        'price',
-        'discount_percent',
-        'is_active',
-    )
-
-    list_filter = (
-        'is_active',
-    )
-
-    search_fields = (
-        'name',
-        'description',
-    )
-
-    list_editable = (
-        'price',
-        'discount_percent',
-        'is_active',
-    )
-
-    ordering = (
-        'name',
-    )
-
-
-class ServiceAreaAdmin(admin.ModelAdmin):
-
-    prepopulated_fields = {
-        'slug': ('name',)
-    }
-
-    list_display = (
-        'name',
-        'slug',
-        'is_active',
-    )
-
-    list_filter = (
-        'is_active',
-    )
-
-    search_fields = (
-        'name',
-        'description',
-    )
-
-
-class FAQAdmin(admin.ModelAdmin):
-
-    list_display = (
-        'question',
-        'service',
-        'is_active',
-    )
-
-    list_filter = (
-        'service',
-        'is_active',
-    )
-
-    search_fields = (
-        'question',
-        'answer',
-    )
-
-
-class BlogAdmin(admin.ModelAdmin):
-
-    prepopulated_fields = {
-        'slug': ('title',)
-    }
-
-    list_display = (
-        'title',
-        'created_at',
-        'is_active',
-    )
-
-    list_filter = (
-        'is_active',
-        'created_at',
-    )
-
-    search_fields = (
-        'title',
-        'excerpt',
-        'content',
-    )
-
-
-# Register models with UAE Care custom admin site
-
-uae_admin_site.register(Service, ServiceAdmin)
-
-uae_admin_site.register(QuoteRequest, QuoteRequestAdmin)
-
-uae_admin_site.register(SiteSettings, SiteSettingsAdmin)
-
-uae_admin_site.register(Project, ProjectAdmin)
-
-uae_admin_site.register(Testimonial, TestimonialAdmin)
+# Register models with Balaji Metal Coating custom admin site
 
 uae_admin_site.register(
-    MaintenancePackage,
-    MaintenancePackageAdmin
+    SiteSettings,
+    SiteSettingsAdmin
 )
 
-uae_admin_site.register(ServiceArea, ServiceAreaAdmin)
+uae_admin_site.register(
+    Service,
+    ServiceAdmin
+)
 
-uae_admin_site.register(FAQ, FAQAdmin)
+uae_admin_site.register(
+    AboutSection,
+    AboutSectionAdmin
+)
 
-uae_admin_site.register(Blog, BlogAdmin)
+uae_admin_site.register(
+    TeamMember,
+    TeamMemberAdmin
+)
+
+uae_admin_site.register(
+    GalleryImage,
+    GalleryImageAdmin
+)
+
+uae_admin_site.register(
+    QuoteRequest,
+    QuoteRequestAdmin
+)

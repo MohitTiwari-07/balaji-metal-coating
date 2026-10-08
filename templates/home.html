@@ -2,839 +2,1245 @@
 {% load static %}
 
 {% block title %}
-UAE CARE | Home Maintenance Services Dubai
+{{ settings.company_name|default:"Balaji Metal Coating LLC" }} | Metal Coating Services Dubai
 {% endblock %}
 
 {% block meta_description %}
-Professional AC, plumbing, electrical, handyman, cleaning, renovation and property maintenance services across Dubai.
+{{ settings.tagline|default:"Balaji Metal Coating LLC provides professional metal plating and coating solutions in Dubai." }}
 {% endblock %}
 
-{% block extra_head %}
+{% block content %}
 
 <style>
 
-/* =========================
-   HOME PAGE STYLES
-========================= */
+/* =========================================================
+   GLOBAL
+========================================================= */
 
-.hero-section {
-    min-height: 680px;
+.bmc-section {
+    padding: 85px 0;
+}
+
+.bmc-section-light {
+    background: #F5F7FA;
+}
+
+.bmc-heading {
+    max-width: 760px;
+    margin: 0 auto 45px;
+    text-align: center;
+}
+
+.bmc-heading .eyebrow {
+    display: inline-block;
+    color: #D99B21;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.bmc-heading h2 {
+    margin: 0 0 14px;
+    color: #071A33;
+    font-size: clamp(30px, 4vw, 46px);
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+.bmc-heading p {
+    margin: 0;
+    color: #6B7280;
+    font-size: 16px;
+    line-height: 1.75;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.bmc-hero {
+    position: relative;
+    min-height: 690px;
     display: flex;
     align-items: center;
-    position: relative;
-    color: #fff;
-
+    overflow: hidden;
     background:
-        linear-gradient(
-            90deg,
-            rgba(4, 19, 40, 0.95) 0%,
-            rgba(4, 19, 40, 0.82) 45%,
-            rgba(4, 19, 40, 0.48) 100%
+        radial-gradient(
+            circle at 82% 48%,
+            rgba(244,185,66,.10),
+            transparent 30%
         ),
-        url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2000&q=90")
-        center / cover;
+        linear-gradient(
+            110deg,
+            #071A33 0%,
+            #0D2748 58%,
+            #071A33 100%
+        );
 }
 
-.hero-content {
-    max-width: 900px;
+.bmc-hero-inner {
+    width: 100%;
+    padding: 95px 0;
 }
 
-.hero-badge {
-    display: inline-block;
-    padding: 10px 18px;
-    border: 1px solid rgba(244, 177, 42, .7);
-    border-radius: 30px;
-    color: #f4b12a;
-    background: rgba(244, 177, 42, .08);
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 25px;
+.bmc-hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 690px;
+    color: #fff;
 }
 
-.hero-section h1 {
-    font-size: clamp(45px, 6vw, 76px);
+.bmc-hero-tag {
+    display: inline-flex;
+    padding: 8px 14px;
+    border: 1px solid rgba(244,185,66,.45);
+    background: rgba(244,185,66,.08);
+    color: #F4B942;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+}
+
+.bmc-hero h1 {
+    margin: 0 0 22px;
+    font-size: clamp(42px, 6vw, 76px);
     line-height: 1.02;
     font-weight: 900;
-    margin-bottom: 25px;
-    letter-spacing: -2px;
+    letter-spacing: -1.8px;
 }
 
-.hero-highlight {
-    color: #f4b12a;
+.bmc-hero h1 span {
+    color: #F4B942;
 }
 
-.hero-section p {
-    max-width: 760px;
-    font-size: 19px;
-    line-height: 1.7;
-    color: #e5ebf2;
+.bmc-hero p {
+    max-width: 650px;
+    margin: 0 0 32px;
+    color: rgba(255,255,255,.82);
+    font-size: 18px;
+    line-height: 1.75;
 }
 
-.hero-buttons {
+.bmc-hero-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 14px;
-    margin-top: 30px;
+    gap: 12px;
 }
 
-.hero-primary {
-    background: #f4a900;
-    color: #071a33;
-    padding: 15px 25px;
-    border-radius: 9px;
+.bmc-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    padding: 0 24px;
+    border-radius: 7px;
     text-decoration: none;
     font-weight: 800;
+    transition: .25s ease;
 }
 
-.hero-primary:hover {
-    background: #ffb91f;
-    color: #071a33;
+.bmc-btn-gold {
+    background: #F4B942;
+    color: #071A33;
 }
 
-.hero-secondary {
-    border: 1px solid rgba(255,255,255,.5);
+.bmc-btn-gold:hover {
+    background: #D99B21;
+    color: #071A33;
+    transform: translateY(-2px);
+}
+
+.bmc-btn-outline {
+    border: 1px solid rgba(255,255,255,.45);
     color: #fff;
-    padding: 15px 25px;
-    border-radius: 9px;
-    text-decoration: none;
-    font-weight: 700;
+    background: rgba(255,255,255,.04);
 }
 
-.hero-secondary:hover {
+.bmc-btn-outline:hover {
     background: #fff;
-    color: #071a33;
+    color: #071A33;
 }
 
-
-/* SEARCH */
-
-.hero-search-wrapper {
-    position: relative;
-    max-width: 680px;
-    margin-top: 35px;
-}
-
-.hero-search {
-    background: #fff;
-    border-radius: 12px;
-    padding: 8px;
-    display: flex;
-    box-shadow: 0 15px 40px rgba(0,0,0,.25);
-}
-
-.hero-search input {
-    flex: 1;
-    border: 0;
-    outline: 0;
-    padding: 14px 16px;
-    font-size: 15px;
-}
-
-.hero-search button {
-    border: 0;
-    background: #071a33;
+.bmc-btn-whatsapp {
+    background: #20B26B;
     color: #fff;
-    padding: 0 25px;
-    border-radius: 8px;
-    font-weight: 700;
+    border: 1px solid #20B26B;
 }
 
-.search-results {
+.bmc-btn-whatsapp:hover {
+    background: #178F55;
+    color: #fff;
+    border-color: #178F55;
+    transform: translateY(-2px);
+}
+
+.bmc-hero-location {
+    margin-top: 28px;
+    color: rgba(255,255,255,.68);
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   HERO METAL VISUAL
+========================================================= */
+
+.bmc-hero-visual {
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 65px;
-    background: #fff;
+    z-index: 1;
+    right: 4%;
+    top: 50%;
+    width: 470px;
+    height: 470px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.bmc-metal-orbit {
+    position: absolute;
+    inset: 25px;
+    border: 1px solid rgba(244,185,66,.25);
+    border-radius: 50%;
+    animation: bmcRotate 18s linear infinite;
+}
+
+.bmc-metal-orbit::before,
+.bmc-metal-orbit::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.10);
+}
+
+.bmc-metal-orbit::before {
+    inset: 45px;
+}
+
+.bmc-metal-orbit::after {
+    inset: 90px;
+}
+
+.bmc-metal-core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 210px;
+    height: 210px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background:
+        radial-gradient(
+            circle at 32% 28%,
+            rgba(255,255,255,.9),
+            transparent 8%
+        ),
+        radial-gradient(
+            circle at 35% 30%,
+            #F4B942 0%,
+            #D99B21 34%,
+            #7B5716 63%,
+            #182638 100%
+        );
+    box-shadow:
+        0 0 55px rgba(244,185,66,.18),
+        inset -25px -25px 40px rgba(0,0,0,.35),
+        inset 18px 18px 25px rgba(255,255,255,.15);
+}
+
+.bmc-metal-core::before {
+    content: "";
+    position: absolute;
+    inset: 28px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,.28);
+}
+
+.bmc-metal-card {
+    position: absolute;
+    padding: 13px 18px;
+    border: 1px solid rgba(244,185,66,.25);
     border-radius: 10px;
-    overflow: hidden;
-    display: none;
-    z-index: 50;
-    box-shadow: 0 15px 40px rgba(0,0,0,.2);
-}
-
-.search-result {
-    display: block;
-    padding: 14px 18px;
-    color: #071a33;
-    text-decoration: none;
-    border-bottom: 1px solid #eee;
-}
-
-.search-result:hover {
-    background: #f5f7fa;
-}
-
-
-/* COMMON */
-
-.home-section {
-    padding: 90px 0;
-}
-
-.section-label {
-    color: #d99b1d;
+    background: rgba(7,26,51,.72);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    font-size: 13px;
+    box-shadow: 0 12px 30px rgba(0,0,0,.20);
+}
+
+.bmc-metal-card span {
+    display: block;
+    margin-top: 3px;
+    color: #F4B942;
+    font-size: 9px;
     letter-spacing: 1.5px;
-    font-weight: 800;
 }
 
-.section-title {
-    color: #071a33;
-    font-size: clamp(32px, 4vw, 48px);
-    font-weight: 850;
-    margin-top: 8px;
-    margin-bottom: 15px;
+.bmc-metal-card.gold {
+    top: 55px;
+    right: 18px;
 }
 
-.section-text {
-    color: #687589;
-    line-height: 1.75;
-    max-width: 720px;
+.bmc-metal-card.silver {
+    bottom: 65px;
+    left: 8px;
+}
+
+.bmc-metal-card.copper {
+    bottom: 18px;
+    right: 70px;
+}
+
+@keyframes bmcRotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 
-/* SERVICES */
+/* =========================================================
+   SERVICES
+========================================================= */
 
-.services-section {
-    background: #f6f8fb;
-}
-
-.service-card {
+.bmc-service-link {
+    display: block;
     height: 100%;
-    background: #fff;
-    border: 1px solid #e8edf2;
-    border-radius: 18px;
-    overflow: hidden;
-    transition: .25s ease;
-}
-
-.service-card:hover {
-    transform: translateY(-7px);
-    box-shadow: 0 18px 40px rgba(7,26,51,.12);
-}
-
-.service-image {
-    width: 100%;
-    height: 195px;
-    object-fit: cover;
-}
-
-.service-body {
-    padding: 24px;
-}
-
-.service-body h4 {
-    color: #071a33;
-    font-weight: 800;
-    font-size: 20px;
-}
-
-.service-body p {
-    color: #6c7888;
-    line-height: 1.65;
-}
-
-.service-price {
-    color: #d99b1d;
-    font-weight: 850;
-    font-size: 20px;
-}
-
-.service-link {
-    color: #071a33;
+    color: inherit;
     text-decoration: none;
-    font-weight: 750;
 }
 
-.service-link:hover {
-    color: #d99b1d;
+.bmc-service-link:hover {
+    color: inherit;
+    text-decoration: none;
 }
 
-
-/* WHY */
-
-.why-card {
+.bmc-service-card {
     height: 100%;
-    padding: 30px;
+    overflow: hidden;
+    border: 1px solid #E7EAF0;
+    border-radius: 14px;
     background: #fff;
-    border: 1px solid #e7ecf1;
-    border-radius: 18px;
+    box-shadow: 0 8px 28px rgba(7,26,51,.06);
     transition: .25s ease;
 }
 
-.why-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(7,26,51,.08);
+.bmc-service-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 18px 42px rgba(7,26,51,.12);
 }
 
-.why-icon {
-    width: 58px;
-    height: 58px;
+.bmc-service-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    background: linear-gradient(135deg,#071A33,#0D2748);
+}
+
+.bmc-service-placeholder {
+    width: 100%;
+    height: 220px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #fff4d7;
-    border-radius: 15px;
-    font-size: 27px;
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(244,185,66,.18),
+            transparent 35%
+        ),
+        linear-gradient(135deg,#071A33,#0D2748);
+    color: #F4B942;
+    font-size: 18px;
+    font-weight: 800;
+    text-align: center;
+    padding: 20px;
+}
+
+.bmc-service-body {
+    padding: 25px;
+}
+
+.bmc-service-number {
+    color: #D99B21;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.bmc-service-body h3 {
+    color: #071A33;
+    font-size: 21px;
+    margin: 0 0 10px;
+    font-weight: 800;
+}
+
+.bmc-service-body p {
+    color: #6B7280;
+    line-height: 1.65;
+    margin: 0;
+    font-size: 14px;
+}
+
+.bmc-explore-service {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 18px;
+    padding: 10px 16px;
+    border-radius: 6px;
+    background: #071A33;
+    color: #fff !important;
+    text-decoration: none !important;
+    font-size: 13px;
+    font-weight: 800;
+    transition: .25s ease;
+}
+
+.bmc-explore-service:hover {
+    background: #F4B942;
+    color: #071A33 !important;
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.bmc-about-image {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 18px;
+    display: block;
+    background: linear-gradient(135deg,#071A33,#0D2748);
+}
+
+.bmc-about-placeholder {
+    width: 100%;
+    height: 500px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    text-align: center;
+    color: #F4B942;
+    font-size: 25px;
+    font-weight: 800;
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(244,185,66,.15),
+            transparent 35%
+        ),
+        linear-gradient(135deg,#071A33,#0D2748);
+}
+
+.bmc-about-content {
+    padding-left: 30px;
+}
+
+.bmc-about-content h2 {
+    color: #071A33;
+    font-size: clamp(30px,4vw,46px);
+    font-weight: 800;
+    line-height: 1.15;
     margin-bottom: 20px;
 }
 
-.why-card h4 {
-    color: #071a33;
-    font-weight: 800;
+.bmc-about-content p {
+    color: #6B7280;
+    line-height: 1.8;
+    margin-bottom: 16px;
 }
 
-.why-card p {
-    color: #687589;
-    line-height: 1.65;
+.bmc-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 13px;
+    color: #253247;
+    font-weight: 600;
 }
 
-
-/* ABOUT */
-
-.about-section {
-    background: #f6f8fb;
-}
-
-.about-image {
-    width: 100%;
-    height: 520px;
-    object-fit: cover;
-    border-radius: 22px;
-}
-
-.about-list {
-    padding: 0;
-    margin: 25px 0;
-    list-style: none;
-}
-
-.about-list li {
-    color: #344154;
-    font-weight: 650;
-    margin-bottom: 14px;
-}
-
-.about-list span {
-    color: #1eae68;
-    margin-right: 8px;
-}
-
-
-/* STATS */
-
-.stats-section {
-    background: #071a33;
-    color: #fff;
-}
-
-.stat-number {
-    color: #f4b12a;
-    font-size: 40px;
+.bmc-check-icon {
+    flex: 0 0 24px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F4B942;
+    color: #071A33;
+    border-radius: 50%;
+    font-size: 12px;
     font-weight: 900;
 }
 
-.stat-label {
-    color: #c5d0dc;
-}
 
+/* =========================================================
+   EXPERIENCE
+========================================================= */
 
-/* PROJECTS */
-
-.project-card {
-    height: 340px;
-    border-radius: 18px;
-    overflow: hidden;
-    position: relative;
-}
-
-.project-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: .4s ease;
-}
-
-.project-card:hover img {
-    transform: scale(1.07);
-}
-
-.project-overlay {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 25px;
+.bmc-experience {
+    background: #071A33;
     color: #fff;
-    background: linear-gradient(
-        transparent,
-        rgba(0,0,0,.88)
-    );
 }
 
-.project-overlay h4 {
-    font-weight: 800;
-    margin: 5px 0 0;
-}
-
-.project-overlay span {
-    color: #f4b12a;
-    font-size: 13px;
-    font-weight: 800;
-}
-
-
-/* TESTIMONIAL */
-
-.testimonials-section {
-    background: #f6f8fb;
-}
-
-.testimonial-card {
+.bmc-experience-card {
     height: 100%;
-    background: #fff;
-    border: 1px solid #e7ecf1;
-    border-radius: 18px;
-    padding: 28px;
+    padding: 30px;
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 14px;
+    background: rgba(255,255,255,.04);
 }
 
-.stars {
-    color: #f4b12a;
-    letter-spacing: 2px;
+.bmc-experience-number {
+    color: #F4B942;
+    font-size: 48px;
+    line-height: 1;
+    font-weight: 900;
+    margin-bottom: 12px;
+}
+
+.bmc-experience-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+
+.bmc-experience-card p {
+    color: rgba(255,255,255,.68);
+    line-height: 1.7;
+    margin: 0;
+}
+
+
+/* =========================================================
+   TEAM
+========================================================= */
+
+.bmc-team-card {
+    height: 100%;
+    padding: 28px;
+    text-align: center;
+    border: 1px solid #E7EAF0;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 8px 25px rgba(7,26,51,.05);
+    transition: .25s ease;
+}
+
+.bmc-team-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 35px rgba(7,26,51,.10);
+}
+
+.bmc-team-image {
+    width: 82px;
+    height: 82px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+.bmc-team-avatar {
+    width: 82px;
+    height: 82px;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #071A33;
+    color: #F4B942;
+    font-size: 27px;
+    font-weight: 800;
+}
+
+.bmc-team-card h3 {
+    color: #071A33;
+    font-size: 20px;
+    margin-bottom: 6px;
+    font-weight: 800;
+}
+
+.bmc-team-card p {
+    color: #6B7280;
+    margin: 0;
+    font-size: 14px;
+}
+
+.bmc-team-phone {
+    color: #253247;
+    font-weight: 700;
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+.bmc-team-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+    margin-top: 15px;
+}
+
+.bmc-team-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    min-width: 92px;
+    padding: 0 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    transition: .2s ease;
+}
+
+.bmc-team-call {
+    background: #071A33;
+    color: #fff !important;
+}
+
+.bmc-team-call:hover {
+    background: #0D2748;
+    color: #fff !important;
+}
+
+.bmc-team-whatsapp {
+    background: #20B26B;
+    color: #fff !important;
+}
+
+.bmc-team-whatsapp:hover {
+    background: #178F55;
+    color: #fff !important;
+}
+
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+.bmc-gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    background: #E7EAF0;
+}
+
+.bmc-gallery-item img {
+    width: 100%;
+    height: 270px;
+    display: block;
+    object-fit: cover;
+    transition: transform .4s ease;
+}
+
+.bmc-gallery-item:hover img {
+    transform: scale(1.04);
+}
+
+.bmc-gallery-placeholder {
+    min-height: 270px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    text-align: center;
+    color: #6B7280;
+    background: #E7EAF0;
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.bmc-contact-card {
+    height: 100%;
+    padding: 30px;
+    border-radius: 14px;
+    background: #fff;
+    border: 1px solid #E7EAF0;
+    box-shadow: 0 8px 28px rgba(7,26,51,.06);
+}
+
+.bmc-contact-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    border-radius: 10px;
+    background: #F4B942;
+    color: #071A33;
+    font-weight: 900;
+}
+
+.bmc-contact-card h3 {
+    color: #071A33;
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 9px;
+}
+
+.bmc-contact-card p,
+.bmc-contact-card a {
+    color: #6B7280;
+    line-height: 1.7;
+    text-decoration: none;
+    margin: 0 0 5px;
+}
+
+.bmc-contact-card a:hover {
+    color: #D99B21;
+}
+
+.bmc-contact-person {
+    margin-bottom: 18px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #E7EAF0;
+}
+
+.bmc-contact-person:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.bmc-contact-person-name {
+    color: #071A33;
+    font-weight: 800;
+    font-size: 14px;
+}
+
+.bmc-contact-person-phone {
+    display: inline-block;
+    margin-top: 2px;
+}
+
+.bmc-contact-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: nowrap;
+    margin-top: 8px;
+}
+
+.bmc-contact-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    min-width: 82px;
+    padding: 0 12px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none !important;
+}
+
+.bmc-contact-call {
+    background: #071A33;
+    color: #fff !important;
+}
+
+.bmc-contact-call:hover {
+    background: #0D2748;
+    color: #fff !important;
+}
+
+.bmc-contact-whatsapp {
+    background: #20B26B;
+    color: #fff !important;
+}
+
+.bmc-contact-whatsapp:hover {
+    background: #178F55;
+    color: #fff !important;
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.bmc-cta {
+    position: relative;
+    overflow: hidden;
+    padding: 80px 0;
+    background: #071A33;
+}
+
+.bmc-cta h2 {
+    color: #fff;
+    font-size: clamp(30px,4vw,48px);
+    font-weight: 800;
     margin-bottom: 15px;
 }
 
-.testimonial-review {
-    color: #596679;
+.bmc-cta p {
+    max-width: 720px;
+    margin: 0 auto 28px;
+    color: rgba(255,255,255,.72);
     line-height: 1.75;
 }
 
-.testimonial-name {
-    color: #071a33;
-    font-weight: 800;
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1199px) {
+
+    .bmc-hero-visual {
+        right: -80px;
+        opacity: .65;
+    }
 }
 
+@media (max-width: 991px) {
 
-/* AMC */
-
-.package-card {
-    height: 100%;
-    background: #fff;
-    border: 1px solid #e3e9ef;
-    border-radius: 20px;
-    padding: 30px;
-    position: relative;
-}
-
-.package-popular {
-    position: absolute;
-    right: 18px;
-    top: 18px;
-    padding: 6px 12px;
-    border-radius: 20px;
-    background: #f4b12a;
-    color: #071a33;
-    font-size: 11px;
-    font-weight: 850;
-}
-
-.package-card h4 {
-    color: #071a33;
-    font-weight: 850;
-}
-
-.package-price {
-    color: #d99b1d;
-    font-size: 29px;
-    font-weight: 900;
-}
-
-.package-features {
-    list-style: none;
-    padding: 0;
-    margin-top: 22px;
-}
-
-.package-features li {
-    color: #687589;
-    margin-bottom: 11px;
-}
-
-.package-features li::before {
-    content: "✓";
-    color: #1eae68;
-    font-weight: 900;
-    margin-right: 9px;
-}
-
-
-/* AREAS */
-
-.areas-section {
-    background: #f6f8fb;
-}
-
-.area-card {
-    display: block;
-    padding: 18px 20px;
-    background: #fff;
-    border: 1px solid #e4e9ef;
-    border-radius: 14px;
-    color: #071a33;
-    text-decoration: none;
-    font-weight: 750;
-    transition: .2s;
-}
-
-.area-card:hover {
-    color: #071a33;
-    border-color: #f4b12a;
-    transform: translateY(-3px);
-}
-
-
-/* BLOG */
-
-.blog-card {
-    height: 100%;
-    background: #fff;
-    border: 1px solid #e5eaf0;
-    border-radius: 18px;
-    overflow: hidden;
-}
-
-.blog-card img {
-    width: 100%;
-    height: 210px;
-    object-fit: cover;
-}
-
-.blog-body {
-    padding: 24px;
-}
-
-.blog-body h4 {
-    color: #071a33;
-    font-weight: 800;
-}
-
-.blog-body p {
-    color: #687589;
-    line-height: 1.65;
-}
-
-
-/* FAQ */
-
-.faq-section {
-    background: #f6f8fb;
-}
-
-.faq-item {
-    background: #fff;
-    border: 1px solid #e4e9ef;
-    border-radius: 12px;
-    margin-bottom: 12px;
-    overflow: hidden;
-}
-
-.faq-item summary {
-    padding: 20px;
-    cursor: pointer;
-    color: #071a33;
-    font-weight: 750;
-}
-
-.faq-answer {
-    padding: 0 20px 20px;
-    color: #687589;
-    line-height: 1.7;
-}
-
-
-/* QUOTE */
-
-.quote-section {
-    background: linear-gradient(
-        120deg,
-        #071a33,
-        #0d294b
-    );
-    color: #fff;
-}
-
-.quote-section h2 {
-    font-size: clamp(32px, 4vw, 48px);
-    font-weight: 850;
-}
-
-.quote-section p {
-    color: #c9d4e1;
-}
-
-.quote-box {
-    background: #fff;
-    border-radius: 20px;
-    padding: 30px;
-    color: #253247;
-}
-
-.quote-box .form-control,
-.quote-box .form-select {
-    padding: 13px 15px;
-    border-radius: 9px;
-}
-
-
-/* RESPONSIVE */
-
-@media(max-width: 768px) {
-
-    .hero-section {
-        min-height: 630px;
+    .bmc-hero {
+        min-height: 650px;
     }
 
-    .hero-section h1 {
-        font-size: 44px;
-        letter-spacing: -1px;
+    .bmc-hero-visual {
+        right: -140px;
+        opacity: .30;
     }
 
-    .hero-section p {
-        font-size: 16px;
+    .bmc-about-content {
+        padding-left: 0;
+        padding-top: 30px;
     }
 
-    .hero-search {
-        display: block;
+    .bmc-about-image,
+    .bmc-about-placeholder {
+        height: 380px;
     }
+}
 
-    .hero-search input {
-        width: 100%;
-    }
+@media (max-width: 767px) {
 
-    .hero-search button {
-        width: 100%;
-        padding: 13px;
-        margin-top: 5px;
-    }
-
-    .home-section {
+    .bmc-section {
         padding: 60px 0;
     }
 
-    .about-image {
-        height: 350px;
+    .bmc-hero {
+        min-height: 680px;
     }
 
-    .project-card {
-        height: 280px;
+    .bmc-hero-inner {
+        padding: 80px 0;
     }
 
+    .bmc-hero h1 {
+        font-size: 42px;
+    }
+
+    .bmc-hero p {
+        font-size: 16px;
+    }
+
+    .bmc-hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .bmc-btn {
+        width: 100%;
+    }
+
+    .bmc-hero-visual {
+        width: 330px;
+        height: 330px;
+        right: -95px;
+        top: 62%;
+        opacity: .22;
+    }
+
+    .bmc-metal-core {
+        width: 145px;
+        height: 145px;
+    }
+
+    .bmc-metal-card {
+        font-size: 8px;
+        padding: 8px 10px;
+    }
+
+    .bmc-about-image,
+    .bmc-about-placeholder {
+        height: 300px;
+    }
+
+    .bmc-gallery-item img,
+    .bmc-gallery-placeholder {
+        height: 230px;
+        min-height: 230px;
+    }
+
+    .bmc-team-actions,
+    .bmc-contact-actions {
+        gap: 6px;
+    }
+
+    .bmc-team-action {
+        min-width: 88px;
+        padding: 0 10px;
+        font-size: 12px;
+    }
+
+    .bmc-contact-action {
+        min-width: 78px;
+        padding: 0 9px;
+        font-size: 11px;
+    }
 }
 
 </style>
 
-{% endblock %}
 
-
-{% block content %}
-
-
-<!-- =========================
+<!-- =====================================================
      HERO
-========================= -->
+===================================================== -->
 
-<section class="hero-section">
+<section class="bmc-hero">
 
-    <div class="container">
+    <div class="container bmc-hero-inner">
 
-        <div class="hero-content">
+        <div class="bmc-hero-content">
 
-            <div class="hero-badge">
-                ✓ Trusted Home Maintenance Experts
+            <div class="bmc-hero-tag">
+                Dubai Metal Coating Company
             </div>
 
             <h1>
-                Everything Your Property
-                <span class="hero-highlight">
-                    Needs, Under One Roof.
-                </span>
+                Professional
+                <span>Metal Coating</span>
+                Services in Dubai
             </h1>
 
             <p>
-                Professional AC, plumbing, electrical, handyman,
-                cleaning, renovation and property maintenance
-                services for homes, villas, apartments and
-                businesses across the UAE.
+                {{ settings.tagline|default:"Balaji Metal Coating LLC provides professional metal plating and coating solutions in Dubai." }}
             </p>
 
-            <div class="hero-buttons">
+            <div class="bmc-hero-actions">
 
-                <a href="{% url 'request_quote' %}"
-                   class="hero-primary">
-                    Get Free Quote
+                <a
+                    href="#services"
+                    class="bmc-btn bmc-btn-gold"
+                >
+                    Explore Services
                 </a>
 
-                {% if settings %}
-
-                <a href="tel:{{ settings.phone }}"
-                   class="hero-secondary">
-                    📞 Call Now
+                <!-- PRIMARY CALL = SANTOSH -->
+                <a
+                    href="tel:+971501097411"
+                    class="bmc-btn bmc-btn-outline"
+                >
+                    ☎ Call
                 </a>
 
-                <a href="https://wa.me/{{ settings.whatsapp }}"
-                   target="_blank"
-                   class="hero-secondary">
+                <!-- PRIMARY WHATSAPP = SANTOSH -->
+                <a
+                    href="https://wa.me/971501097411"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="bmc-btn bmc-btn-whatsapp"
+                >
                     💬 WhatsApp
                 </a>
+
+            </div>
+
+            <div class="bmc-hero-location">
+                📍 {{ settings.address|default:"Jabal Ali Industrial Area-1, Dubai, UAE" }}
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="bmc-hero-visual" aria-hidden="true">
+
+        <div class="bmc-metal-orbit"></div>
+
+        <div class="bmc-metal-core"></div>
+
+        <div class="bmc-metal-card gold">
+            Gold Plating
+            <span>METAL FINISH</span>
+        </div>
+
+        <div class="bmc-metal-card silver">
+            Silver Plating
+            <span>METAL FINISH</span>
+        </div>
+
+        <div class="bmc-metal-card copper">
+            Copper Plating
+            <span>METAL FINISH</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SERVICES
+===================================================== -->
+
+<section class="bmc-section" id="services">
+
+    <div class="container">
+
+        <div class="bmc-heading">
+
+            <span class="eyebrow">
+                Our Services
+            </span>
+
+            <h2>
+                Metal Coating Solutions
+            </h2>
+
+            <p>
+                Professional metal plating and coating services provided by
+                Balaji Metal Coating LLC.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            {% for service in services %}
+
+            <div class="col-lg-4 col-md-6">
+
+                <a
+                    href="{% url 'service_detail' service.slug %}"
+                    class="bmc-service-link"
+                >
+
+                    <div class="bmc-service-card">
+
+                        {% if service.image %}
+
+                        <img
+                            src="{{ service.image.url }}"
+                            alt="{{ service.name }}"
+                            class="bmc-service-image"
+                            width="800"
+                            height="500"
+                            loading="lazy"
+                            decoding="async"
+                        >
+
+                        {% else %}
+
+                        <div class="bmc-service-placeholder">
+                            {{ service.name }}
+                        </div>
+
+                        {% endif %}
+
+
+                        <div class="bmc-service-body">
+
+                            <div class="bmc-service-number">
+                                {{ forloop.counter|stringformat:"02d" }}
+                            </div>
+
+                            <h3>
+                                {{ service.name }}
+                            </h3>
+
+                            {% if service.short_description %}
+
+                            <p>
+                                {{ service.short_description }}
+                            </p>
+
+                            {% elif service.description %}
+
+                            <p>
+                                {{ service.description|truncatewords:20 }}
+                            </p>
+
+                            {% endif %}
+
+
+                            <!-- EXPLORE SERVICE -->
+                            <span class="bmc-explore-service">
+                                Explore Service →
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+            {% empty %}
+
+            <div class="col-12">
+
+                <div class="text-center py-5">
+
+                    <p class="text-muted mb-0">
+                        Services will be updated soon.
+                    </p>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section class="bmc-section bmc-section-light" id="about">
+
+    <div class="container">
+
+        {% if about_section %}
+
+        <div class="row align-items-center g-5">
+
+            <div class="col-lg-6">
+
+                {% if about_section.image %}
+
+                <img
+                    src="{{ about_section.image.url }}"
+                    alt="{{ about_section.title }}"
+                    class="bmc-about-image"
+                    width="900"
+                    height="650"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                {% else %}
+
+                <div class="bmc-about-placeholder">
+                    {{ about_section.title }}
+                </div>
 
                 {% endif %}
 
             </div>
 
 
-            <!-- SEARCH -->
+            <div class="col-lg-6">
 
-            <div class="hero-search-wrapper">
+                <div class="bmc-about-content">
 
-                <form class="hero-search"
-                      onsubmit="return false;">
+                    <div style="margin-bottom:18px;">
 
-                    <input
-                        type="text"
-                        id="serviceSearch"
-                        placeholder="Search for a service...">
-
-                    <button type="button"
-                            onclick="showServiceResults()">
-                        Search
-                    </button>
-
-                </form>
-
-
-                <div id="serviceResults"
-                     class="search-results">
-
-                    {% for service in services %}
-
-                    <a href="{% url 'service_detail' service.slug %}"
-                       class="search-result"
-                       data-name="{{ service.name|lower }}">
-
-                        <strong>
-                            {{ service.name }}
-                        </strong>
-
-                        {% if service.price %}
-
-                        <span class="float-end">
-                            AED {{ service.price }}
+                        <span class="eyebrow">
+                            About Us
                         </span>
 
-                        {% endif %}
+                    </div>
 
-                    </a>
+                    <h2>
+                        {{ about_section.title }}
+                    </h2>
 
-                    {% endfor %}
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
+                    <p>
+                        {{ about_section.content }}
+                    </p>
 
 
-<!-- =========================
-     POPULAR SERVICES
-========================= -->
+                    <div class="mt-4">
 
-<section class="home-section services-section">
+                        <div class="bmc-check">
 
-    <div class="container">
+                            <span class="bmc-check-icon">
+                                ✓
+                            </span>
 
-        <div class="d-flex
-                    justify-content-between
-                    align-items-end
-                    flex-wrap
-                    gap-3
-                    mb-5">
+                            <span>
+                                Dubai-based metal coating company
+                            </span>
 
-            <div>
-
-                <span class="section-label">
-                    Our Services
-                </span>
-
-                <h2 class="section-title">
-                    Popular Home Services
-                </h2>
-
-                <p class="section-text">
-                    Reliable technical and maintenance solutions
-                    for residential and commercial properties.
-                </p>
-
-            </div>
-
-            <a href="{% url 'services' %}"
-               class="btn-main">
-                View All Services
-            </a>
-
-        </div>
-
-
-        <div class="row g-4">
-
-            {% for service in services|slice:":6" %}
-
-            <div class="col-md-6 col-lg-4">
-
-                <div class="service-card">
-
-                    {% if service.image %}
-
-                    <img src="{{ service.image }}"
-                         class="service-image"
-                         alt="{{ service.name }}">
-
-                    {% else %}
-
-                    <img
-                        src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=900&q=85"
-                        class="service-image"
-                        alt="{{ service.name }}">
-
-                    {% endif %}
-
-
-                    <div class="service-body">
-
-                        <h4>
-                            {{ service.name }}
-                        </h4>
-
-                        <p>
-                            {{ service.description|truncatewords:20 }}
-                        </p>
-
-                        {% if service.price %}
-
-                        <div class="service-price mb-3">
-                            From AED {{ service.price }}
                         </div>
 
-                        {% endif %}
 
-                        <a href="{% url 'service_detail' service.slug %}"
-                           class="service-link">
-                            View Service →
-                        </a>
+                        <div class="bmc-check">
+
+                            <span class="bmc-check-icon">
+                                ✓
+                            </span>
+
+                            <span>
+                                {{ about_section.experience_years }}+ years of experience
+                            </span>
+
+                        </div>
+
+
+                        <div class="bmc-check">
+
+                            <span class="bmc-check-icon">
+                                ✓
+                            </span>
+
+                            <span>
+                                Multiple metal plating and coating services
+                            </span>
+
+                        </div>
+
+
+                        <div class="bmc-check">
+
+                            <span class="bmc-check-icon">
+                                ✓
+                            </span>
+
+                            <span>
+                                {{ settings.address }}
+                            </span>
+
+                        </div>
 
                     </div>
 
@@ -842,46 +1248,35 @@ Professional AC, plumbing, electrical, handyman, cleaning, renovation and proper
 
             </div>
 
-            {% empty %}
-
-            <div class="col-12 text-center">
-
-                <p class="text-muted">
-                    Services will be available soon.
-                </p>
-
-            </div>
-
-            {% endfor %}
-
         </div>
+
+        {% endif %}
 
     </div>
 
 </section>
 
 
-<!-- =========================
-     WHY UAE CARE
-========================= -->
+<!-- =====================================================
+     EXPERIENCE
+===================================================== -->
 
-<section class="home-section">
+<section class="bmc-section bmc-experience">
 
     <div class="container">
 
-        <div class="text-center mb-5">
+        <div class="bmc-heading">
 
-            <span class="section-label">
-                Why UAE CARE
+            <span class="eyebrow">
+                Our Experience
             </span>
 
-            <h2 class="section-title">
-                Maintenance Made Simple
+            <h2 style="color:#fff;">
+                Experience That Matters
             </h2>
 
-            <p class="section-text mx-auto">
-                One trusted partner for everyday repairs,
-                technical maintenance and property improvement.
+            <p style="color:rgba(255,255,255,.68);">
+                {{ settings.experience_text|default:"Our team has more than 10 years of experience in interior designing and metal coating fields." }}
             </p>
 
         </div>
@@ -889,21 +1284,47 @@ Professional AC, plumbing, electrical, handyman, cleaning, renovation and proper
 
         <div class="row g-4">
 
-            <div class="col-md-6 col-lg-3">
+            {% if about_section %}
 
-                <div class="why-card">
+            <div class="col-lg-4 col-md-6">
 
-                    <div class="why-icon">
-                        🛠️
+                <div class="bmc-experience-card">
+
+                    <div class="bmc-experience-number">
+                        {{ about_section.experience_years }}+
                     </div>
 
-                    <h4>
-                        Skilled Technicians
-                    </h4>
+                    <h3>
+                        {{ about_section.experience_title }}
+                    </h3>
 
                     <p>
-                        Professional technicians for a wide range
-                        of technical and maintenance requirements.
+                        Team experience in interior designing
+                        and metal coating fields.
+                    </p>
+
+                </div>
+
+            </div>
+
+            {% endif %}
+
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="bmc-experience-card">
+
+                    <div class="bmc-experience-number">
+                        {{ services|length }}
+                    </div>
+
+                    <h3>
+                        Core Services
+                    </h3>
+
+                    <p>
+                        Metal plating and coating services
+                        available through our website.
                     </p>
 
                 </div>
@@ -911,65 +1332,20 @@ Professional AC, plumbing, electrical, handyman, cleaning, renovation and proper
             </div>
 
 
-            <div class="col-md-6 col-lg-3">
+            <div class="col-lg-4 col-md-12">
 
-                <div class="why-card">
+                <div class="bmc-experience-card">
 
-                    <div class="why-icon">
-                        ⚡
+                    <div class="bmc-experience-number">
+                        UAE
                     </div>
 
-                    <h4>
-                        Fast Response
-                    </h4>
+                    <h3>
+                        Dubai Based
+                    </h3>
 
                     <p>
-                        Quick assistance for urgent repairs and
-                        everyday property maintenance.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="col-md-6 col-lg-3">
-
-                <div class="why-card">
-
-                    <div class="why-icon">
-                        💰
-                    </div>
-
-                    <h4>
-                        Clear Pricing
-                    </h4>
-
-                    <p>
-                        Transparent service information and
-                        straightforward pricing.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="col-md-6 col-lg-3">
-
-                <div class="why-card">
-
-                    <div class="why-icon">
-                        🏠
-                    </div>
-
-                    <h4>
-                        One Roof Solution
-                    </h4>
-
-                    <p>
-                        Multiple property services from one
-                        reliable maintenance partner.
+                        {{ settings.address|default:"Jabal Ali Industrial Area-1, Dubai, UAE" }}
                     </p>
 
                 </div>
@@ -983,362 +1359,27 @@ Professional AC, plumbing, electrical, handyman, cleaning, renovation and proper
 </section>
 
 
-<!-- =========================
-     ABOUT
-========================= -->
+<!-- =====================================================
+     TEAM
+===================================================== -->
 
-<section class="home-section about-section">
-
-    <div class="container">
-
-        <div class="row
-                    align-items-center
-                    g-5">
-
-            <div class="col-lg-6">
-
-                <img
-                    src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=85"
-                    class="about-image"
-                    alt="UAE CARE property maintenance">
-
-            </div>
-
-
-            <div class="col-lg-6">
-
-                <span class="section-label">
-                    About UAE CARE
-                </span>
-
-                <h2 class="section-title">
-                    Your Property Deserves Reliable Care
-                </h2>
-
-                <p class="section-text">
-                    UAE CARE provides professional property
-                    maintenance and technical services designed
-                    for homes, villas, apartments and commercial
-                    properties.
-                </p>
-
-                <p class="section-text">
-                    From routine maintenance to urgent repairs
-                    and property improvement projects, our goal
-                    is to make property care simpler and more
-                    convenient.
-                </p>
-
-
-                <ul class="about-list">
-
-                    <li>
-                        <span>✓</span>
-                        Residential & Commercial Services
-                    </li>
-
-                    <li>
-                        <span>✓</span>
-                        AC, Plumbing & Electrical
-                    </li>
-
-                    <li>
-                        <span>✓</span>
-                        Handyman & General Maintenance
-                    </li>
-
-                    <li>
-                        <span>✓</span>
-                        Renovation & Property Improvement
-                    </li>
-
-                </ul>
-
-
-                <a href="{% url 'about' %}"
-                   class="btn-main">
-                    Learn More About Us
-                </a>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     STATS
-========================= -->
-
-<section class="home-section stats-section">
+<section class="bmc-section" id="team">
 
     <div class="container">
 
-        <div class="row text-center g-4">
+        <div class="bmc-heading">
 
-            <div class="col-6 col-lg-3">
-
-                <div class="stat-number">
-                    24/7
-                </div>
-
-                <div class="stat-label">
-                    Service Support
-                </div>
-
-            </div>
-
-
-            <div class="col-6 col-lg-3">
-
-                <div class="stat-number">
-                    10+
-                </div>
-
-                <div class="stat-label">
-                    Service Categories
-                </div>
-
-            </div>
-
-
-            <div class="col-6 col-lg-3">
-
-                <div class="stat-number">
-                    100%
-                </div>
-
-                <div class="stat-label">
-                    Property Focused
-                </div>
-
-            </div>
-
-
-            <div class="col-6 col-lg-3">
-
-                <div class="stat-number">
-                    UAE
-                </div>
-
-                <div class="stat-label">
-                    Service Coverage
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     PROJECTS
-========================= -->
-
-<section class="home-section">
-
-    <div class="container">
-
-        <div class="d-flex
-                    justify-content-between
-                    align-items-end
-                    flex-wrap
-                    gap-3
-                    mb-5">
-
-            <div>
-
-                <span class="section-label">
-                    Our Work
-                </span>
-
-                <h2 class="section-title">
-                    Recent Projects
-                </h2>
-
-                <p class="section-text">
-                    Explore some of the property maintenance
-                    and improvement work managed by UAE CARE.
-                </p>
-
-            </div>
-
-            <a href="{% url 'projects' %}"
-               class="btn-main">
-                View Projects
-            </a>
-
-        </div>
-
-
-        <div class="row g-4">
-
-            {% for project in projects|slice:":3" %}
-
-            <div class="col-md-4">
-
-                <div class="project-card">
-
-                    {% if project.image %}
-
-                    <img src="{{ project.image }}"
-                         alt="{{ project.title }}">
-
-                    {% else %}
-
-                    <img
-                        src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1000&q=85"
-                        alt="{{ project.title }}">
-
-                    {% endif %}
-
-
-                    <div class="project-overlay">
-
-                        <span>
-                            {{ project.category }}
-                        </span>
-
-                        <h4>
-                            {{ project.title }}
-                        </h4>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            {% empty %}
-
-            <div class="col-12 text-center">
-
-                <p class="text-muted">
-                    Projects will be added soon.
-                </p>
-
-            </div>
-
-            {% endfor %}
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     TESTIMONIALS
-========================= -->
-
-<section class="home-section testimonials-section">
-
-    <div class="container">
-
-        <div class="text-center mb-5">
-
-            <span class="section-label">
-                Customer Reviews
+            <span class="eyebrow">
+                Our Team
             </span>
 
-            <h2 class="section-title">
-                What Our Customers Say
+            <h2>
+                Meet Our Team
             </h2>
 
-        </div>
-
-
-        <div class="row g-4">
-
-            {% for testimonial in testimonials|slice:":3" %}
-
-            <div class="col-md-4">
-
-                <div class="testimonial-card">
-
-                    <div class="stars">
-
-                        {% for i in "12345" %}
-
-                        {% if forloop.counter <= testimonial.rating %}
-                            ★
-                        {% else %}
-                            ☆
-                        {% endif %}
-
-                        {% endfor %}
-
-                    </div>
-
-                    <p class="testimonial-review">
-                        "{{ testimonial.review }}"
-                    </p>
-
-                    <div class="testimonial-name">
-                        {{ testimonial.name }}
-                    </div>
-
-                </div>
-
-            </div>
-
-            {% empty %}
-
-            <div class="col-12 text-center">
-
-                <p class="text-muted">
-                    Customer reviews will appear here.
-                </p>
-
-            </div>
-
-            {% endfor %}
-
-        </div>
-
-
-        <div class="text-center mt-5">
-
-            <a href="{% url 'reviews' %}"
-               class="btn-main">
-                View All Reviews
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     AMC
-========================= -->
-
-<section class="home-section">
-
-    <div class="container">
-
-        <div class="text-center mb-5">
-
-            <span class="section-label">
-                Maintenance Plans
-            </span>
-
-            <h2 class="section-title">
-                AMC Packages
-            </h2>
-
-            <p class="section-text mx-auto">
-                Planned maintenance solutions designed to help
-                protect your property throughout the year.
+            <p>
+                The management, sales and production team of
+                Balaji Metal Coating LLC.
             </p>
 
         </div>
@@ -1346,48 +1387,82 @@ Professional AC, plumbing, electrical, handyman, cleaning, renovation and proper
 
         <div class="row g-4 justify-content-center">
 
-            {% for package in packages|slice:":3" %}
+            {% for member in team_members %}
 
-            <div class="col-md-6 col-lg-4">
+            <div class="col-lg-4 col-md-6">
 
-                <div class="package-card">
+                <div class="bmc-team-card">
 
-                    {% if forloop.counter == 2 %}
+                    {% if member.image %}
 
-                    <div class="package-popular">
-                        POPULAR
+                    <img
+                        src="{{ member.image.url }}"
+                        alt="{{ member.name }}"
+                        class="bmc-team-image"
+                        width="82"
+                        height="82"
+                        loading="lazy"
+                        decoding="async"
+                    >
+
+                    {% else %}
+
+                    <div class="bmc-team-avatar">
+                        {{ member.name|first|upper }}
                     </div>
 
                     {% endif %}
 
-                    <h4>
-                        {{ package.name }}
-                    </h4>
 
-                    {% if package.price %}
+                    <h3>
+                        {{ member.name }}
+                    </h3>
 
-                    <div class="package-price">
-                        AED {{ package.price }}
-                    </div>
-
-                    {% endif %}
-
-                    <p class="text-muted mt-3">
-                        {{ package.description }}
+                    <p>
+                        {{ member.designation }}
                     </p>
 
 
-                    <ul class="package-features">
+                    {% if member.phone %}
 
-                        {% for feature in package.features.splitlines %}
+                    <div class="bmc-team-phone">
+                        {{ member.phone }}
+                    </div>
 
-                        <li>
-                            {{ feature }}
-                        </li>
 
-                        {% endfor %}
+                    <div class="bmc-team-actions">
 
-                    </ul>
+                        <!-- MEMBER'S OWN CALL -->
+                        <a
+                            href="tel:{{ member.phone|cut:' '|cut:'-' }}"
+                            class="bmc-team-action bmc-team-call"
+                        >
+                            ☎ Call
+                        </a>
+
+
+                        <!-- MEMBER'S OWN WHATSAPP -->
+                        <a
+                            href="https://wa.me/{{ member.phone|cut:'+'|cut:' '|cut:'-' }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="bmc-team-action bmc-team-whatsapp"
+                        >
+                            💬 WhatsApp
+                        </a>
+
+                    </div>
+
+                    {% endif %}
+
+
+                    {% if member.description %}
+
+                    <p class="mt-2">
+                        {{ member.description }}
+                    </p>
+
+                    {% endif %}
 
                 </div>
 
@@ -1398,7 +1473,7 @@ Professional AC, plumbing, electrical, handyman, cleaning, renovation and proper
             <div class="col-12 text-center">
 
                 <p class="text-muted">
-                    Maintenance packages will be available soon.
+                    Team information will be updated soon.
                 </p>
 
             </div>
@@ -1407,166 +1482,78 @@ Professional AC, plumbing, electrical, handyman, cleaning, renovation and proper
 
         </div>
 
-
-        <div class="text-center mt-5">
-
-            <a href="{% url 'maintenance_packages' %}"
-               class="btn-main">
-                Explore AMC Packages
-            </a>
-
-        </div>
-
     </div>
 
 </section>
 
 
-<!-- =========================
-     SERVICE AREAS
-========================= -->
+<!-- =====================================================
+     GALLERY
+===================================================== -->
 
-<section class="home-section areas-section">
+<section class="bmc-section bmc-section-light" id="gallery">
 
     <div class="container">
 
-        <div class="text-center mb-5">
+        <div class="bmc-heading">
 
-            <span class="section-label">
-                Service Areas
+            <span class="eyebrow">
+                Gallery
             </span>
 
-            <h2 class="section-title">
-                Areas We Serve
+            <h2>
+                Our Work
             </h2>
 
-            <p class="section-text mx-auto">
-                Professional property maintenance services
-                across key areas.
+            <p>
+                A visual look at Balaji Metal Coating LLC.
             </p>
-
-        </div>
-
-
-        <div class="row g-3">
-
-            {% for area in service_areas|slice:":12" %}
-
-            <div class="col-6 col-md-4 col-lg-3">
-
-                <a href="{% url 'service_area_detail' area.slug %}"
-                   class="area-card">
-
-                    📍 {{ area.name }}
-
-                </a>
-
-            </div>
-
-            {% empty %}
-
-            <div class="col-12 text-center">
-
-                <p class="text-muted">
-                    Service areas will be added soon.
-                </p>
-
-            </div>
-
-            {% endfor %}
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     BLOG
-========================= -->
-
-<section class="home-section">
-
-    <div class="container">
-
-        <div class="d-flex
-                    justify-content-between
-                    align-items-end
-                    flex-wrap
-                    gap-3
-                    mb-5">
-
-            <div>
-
-                <span class="section-label">
-                    Guides & Advice
-                </span>
-
-                <h2 class="section-title">
-                    Latest From Our Blog
-                </h2>
-
-            </div>
-
-            <a href="{% url 'blog' %}"
-               class="btn-main">
-                View All Articles
-            </a>
 
         </div>
 
 
         <div class="row g-4">
 
-            {% for blog in blogs|slice:":3" %}
+            {% for item in gallery_images %}
 
-            <div class="col-md-4">
+            <div class="col-lg-4 col-md-6">
 
-                <article class="blog-card">
-
-                    {% if blog.image %}
-
-                    <img src="{{ blog.image }}"
-                         alt="{{ blog.title }}">
-
-                    {% else %}
+                <div class="bmc-gallery-item">
 
                     <img
-                        src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1000&q=85"
-                        alt="{{ blog.title }}">
+                        src="{{ item.image.url }}"
+                        alt="{{ item.title|default:'Balaji Metal Coating work' }}"
+                        width="800"
+                        height="550"
+                        loading="lazy"
+                        decoding="async"
+                    >
 
-                    {% endif %}
-
-
-                    <div class="blog-body">
-
-                        <h4>
-                            {{ blog.title }}
-                        </h4>
-
-                        <p>
-                            {{ blog.excerpt|truncatewords:22 }}
-                        </p>
-
-                        <a href="{% url 'blog_detail' blog.slug %}"
-                           class="service-link">
-                            Read Article →
-                        </a>
-
-                    </div>
-
-                </article>
+                </div>
 
             </div>
 
             {% empty %}
 
-            <div class="col-12 text-center">
+            <div class="col-12">
 
-                <p class="text-muted">
-                    Blog articles will be added soon.
-                </p>
+                <div class="bmc-gallery-placeholder">
+
+                    <div>
+
+                        <strong>
+                            Gallery
+                        </strong>
+
+                        <br>
+
+                        <span>
+                            Gallery images can be added from the Django Admin.
+                        </span>
+
+                    </div>
+
+                </div>
 
             </div>
 
@@ -1579,250 +1566,150 @@ Professional AC, plumbing, electrical, handyman, cleaning, renovation and proper
 </section>
 
 
-<!-- =========================
-     FAQ
-========================= -->
+<!-- =====================================================
+     CONTACT
+===================================================== -->
 
-<section class="home-section faq-section">
+<section class="bmc-section" id="contact">
 
     <div class="container">
 
-        <div class="row g-5">
+        <div class="bmc-heading">
 
-            <div class="col-lg-5">
+            <span class="eyebrow">
+                Contact Us
+            </span>
 
-                <span class="section-label">
-                    FAQs
-                </span>
+            <h2>
+                Let's Discuss Your Requirement
+            </h2>
 
-                <h2 class="section-title">
-                    Frequently Asked Questions
-                </h2>
-
-                <p class="section-text">
-                    Find answers to common questions about our
-                    home maintenance and technical services.
-                </p>
-
-                <a href="{% url 'faqs' %}"
-                   class="btn-main mt-3">
-                    View All FAQs
-                </a>
-
-            </div>
-
-
-            <div class="col-lg-7">
-
-                {% for faq in faqs|slice:":6" %}
-
-                <details class="faq-item">
-
-                    <summary>
-                        {{ faq.question }}
-                    </summary>
-
-                    <div class="faq-answer">
-                        {{ faq.answer }}
-                    </div>
-
-                </details>
-
-                {% empty %}
-
-                <p class="text-muted">
-                    FAQs will be added soon.
-                </p>
-
-                {% endfor %}
-
-            </div>
+            <p>
+                Contact {{ settings.company_name|default:"Balaji Metal Coating LLC" }}
+                for metal coating services in Dubai.
+            </p>
 
         </div>
 
-    </div>
 
-</section>
-
-
-<!-- =========================
-     QUOTE SECTION
-========================= -->
-
-<section class="home-section quote-section">
-
-    <div class="container">
-
-        <div class="row g-5 align-items-center">
-
-            <div class="col-lg-5">
-
-                <span class="section-label"
-                      style="color:#f4b12a;">
-                    Get Started
-                </span>
-
-                <h2>
-                    Need Maintenance?
-                    Let's Talk.
-                </h2>
-
-                <p>
-                    Tell us what your property needs and our
-                    team will get back to you with the right
-                    solution.
-                </p>
+        <div class="row g-4">
 
 
-                {% if settings %}
+            <!-- TEAM CONTACT -->
 
-                <div class="mt-4">
+            <div class="col-lg-4 col-md-6">
 
-                    <a href="tel:{{ settings.phone }}"
-                       class="btn btn-light me-2 mb-2">
-                        📞 {{ settings.phone }}
-                    </a>
+                <div class="bmc-contact-card">
 
-                    <a href="https://wa.me/{{ settings.whatsapp }}"
-                       target="_blank"
-                       class="whatsapp-btn mb-2">
-                        💬 WhatsApp
-                    </a>
+                    <div class="bmc-contact-icon">
+                        ☎
+                    </div>
 
-                </div>
-
-                {% endif %}
-
-            </div>
-
-
-            <div class="col-lg-7">
-
-                <div class="quote-box">
-
-                    <h3 class="fw-bold mb-4"
-                        style="color:#071a33;">
-                        Request a Free Quote
+                    <h3>
+                        Contact Our Team
                     </h3>
 
 
-                    <form method="POST">
+                    {% for member in team_members %}
 
-                        {% csrf_token %}
+                    {% if member.phone %}
 
-                        <div class="row g-3">
+                    <div class="bmc-contact-person">
 
-                            <div class="col-md-6">
-
-                                <label class="form-label">
-                                    Name
-                                </label>
-
-                                <input
-                                    type="text"
-                                    name="name"
-                                    class="form-control"
-                                    placeholder="Your name"
-                                    required>
-
-                            </div>
+                        <div class="bmc-contact-person-name">
+                            {{ member.name }}
+                        </div>
 
 
-                            <div class="col-md-6">
-
-                                <label class="form-label">
-                                    Phone
-                                </label>
-
-                                <input
-                                    type="tel"
-                                    name="phone"
-                                    class="form-control"
-                                    placeholder="+971..."
-                                    required>
-
-                            </div>
+                        <a
+                            href="tel:{{ member.phone|cut:' '|cut:'-' }}"
+                            class="bmc-contact-person-phone"
+                        >
+                            {{ member.phone }}
+                        </a>
 
 
-                            <div class="col-12">
+                        <div class="bmc-contact-actions">
 
-                                <label class="form-label">
-                                    Email
-                                </label>
-
-                                <input
-                                    type="email"
-                                    name="email"
-                                    class="form-control"
-                                    placeholder="you@example.com"
-                                    required>
-
-                            </div>
+                            <a
+                                href="tel:{{ member.phone|cut:' '|cut:'-' }}"
+                                class="bmc-contact-action bmc-contact-call"
+                            >
+                                ☎ Call
+                            </a>
 
 
-                            <div class="col-12">
-
-                                <label class="form-label">
-                                    Service
-                                </label>
-
-                                <select
-                                    name="service"
-                                    class="form-select"
-                                    required>
-
-                                    <option value="">
-                                        Select a service
-                                    </option>
-
-                                    {% for service in services %}
-
-                                    <option value="{{ service.name }}">
-                                        {{ service.name }}
-                                    </option>
-
-                                    {% endfor %}
-
-                                    <option value="Other">
-                                        Other
-                                    </option>
-
-                                </select>
-
-                            </div>
-
-
-                            <div class="col-12">
-
-                                <label class="form-label">
-                                    Message
-                                </label>
-
-                                <textarea
-                                    name="message"
-                                    rows="4"
-                                    class="form-control"
-                                    placeholder="Tell us about your requirement..."
-                                    required></textarea>
-
-                            </div>
-
-
-                            <div class="col-12">
-
-                                <button
-                                    type="submit"
-                                    class="btn-main w-100">
-
-                                    Submit Quote Request
-
-                                </button>
-
-                            </div>
+                            <a
+                                href="https://wa.me/{{ member.phone|cut:'+'|cut:' '|cut:'-' }}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="bmc-contact-action bmc-contact-whatsapp"
+                            >
+                                💬 WhatsApp
+                            </a>
 
                         </div>
 
-                    </form>
+                    </div>
+
+                    {% endif %}
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="bmc-contact-card">
+
+                    <div class="bmc-contact-icon">
+                        @
+                    </div>
+
+                    <h3>
+                        Email
+                    </h3>
+
+
+                    {% if settings.email %}
+
+                    <p>
+
+                        <a href="mailto:{{ settings.email }}">
+                            {{ settings.email }}
+                        </a>
+
+                    </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- LOCATION -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="bmc-contact-card">
+
+                    <div class="bmc-contact-icon">
+                        📍
+                    </div>
+
+                    <h3>
+                        Location
+                    </h3>
+
+                    <p>
+                        {{ settings.address }}
+                    </p>
 
                 </div>
 
@@ -1835,96 +1722,64 @@ Professional AC, plumbing, electrical, handyman, cleaning, renovation and proper
 </section>
 
 
-{% endblock %}
+<!-- =====================================================
+     CTA
+===================================================== -->
+
+<section class="bmc-cta">
+
+    <div class="container text-center">
+
+        <h2>
+            {{ settings.company_name|default:"Balaji Metal Coating LLC" }}
+        </h2>
 
 
-{% block extra_js %}
-
-<script>
-
-const serviceSearch =
-    document.getElementById("serviceSearch");
-
-const serviceResults =
-    document.getElementById("serviceResults");
+        <p>
+            {{ settings.tagline|default:"Professional metal plating and coating services in Dubai." }}
+        </p>
 
 
-if (serviceSearch) {
-
-    serviceSearch.addEventListener("input", function () {
-
-        const query =
-            this.value.toLowerCase().trim();
-
-        const results =
-            document.querySelectorAll(".search-result");
-
-        let visible = 0;
+        <div class="d-flex flex-wrap justify-content-center gap-3">
 
 
-        if (query === "") {
+            <!-- PRIMARY CALL = SANTOSH -->
 
-            serviceResults.style.display = "none";
-            return;
-
-        }
-
-
-        results.forEach(function (item) {
-
-            const name =
-                item.dataset.name;
-
-            if (name.includes(query)) {
-
-                item.style.display = "block";
-                visible++;
-
-            } else {
-
-                item.style.display = "none";
-
-            }
-
-        });
+            <a
+                href="tel:+971501097411"
+                class="bmc-btn bmc-btn-gold"
+            >
+                ☎ Call
+            </a>
 
 
-        serviceResults.style.display =
-            visible > 0 ? "block" : "none";
+            <!-- PRIMARY WHATSAPP = SANTOSH -->
 
-    });
-
-
-    document.addEventListener("click", function (event) {
-
-        if (
-            !serviceSearch.contains(event.target) &&
-            !serviceResults.contains(event.target)
-        ) {
-
-            serviceResults.style.display = "none";
-
-        }
-
-    });
-
-}
+            <a
+                href="https://wa.me/971501097411"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bmc-btn bmc-btn-whatsapp"
+            >
+                💬 WhatsApp
+            </a>
 
 
-function showServiceResults() {
+            {% if settings.email %}
 
-    if (serviceSearch) {
+            <a
+                href="mailto:{{ settings.email }}"
+                class="bmc-btn bmc-btn-outline"
+            >
+                Email Us
+            </a>
 
-        serviceSearch.focus();
+            {% endif %}
 
-        serviceSearch.dispatchEvent(
-            new Event("input")
-        );
+        </div>
 
-    }
+    </div>
 
-}
-
-</script>
+</section>
 
 {% endblock %}

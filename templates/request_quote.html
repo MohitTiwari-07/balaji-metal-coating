@@ -1,226 +1,615 @@
 {% extends "base.html" %}
-{% load static %}
 
-{% block title %}Request a Free Quote | UAE Care{% endblock %}
+{% block title %}
+Send Enquiry | {{ settings.company_name|default:"Balaji Metal Coating LLC" }}
+{% endblock %}
+
+{% block meta_description %}
+Send an enquiry to {{ settings.company_name|default:"Balaji Metal Coating LLC" }} for metal coating and plating services in Dubai, UAE.
+{% endblock %}
+
+
+{% block extra_head %}
+<style>
+
+.quote-hero {
+    min-height: 430px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 85% 20%, rgba(244,185,66,.18), transparent 30%),
+        linear-gradient(135deg, #071A33 0%, #0D2748 55%, #071A33 100%);
+}
+
+.quote-hero::before {
+    content: "";
+    position: absolute;
+    width: 460px;
+    height: 460px;
+    right: -150px;
+    top: -160px;
+    border: 1px solid rgba(244,185,66,.22);
+    border-radius: 50%;
+}
+
+.quote-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+}
+
+.section-label {
+    color: #F4B942;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.quote-hero h1 {
+    color: #fff;
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 20px;
+}
+
+.quote-hero p {
+    color: rgba(255,255,255,.82);
+    font-size: 18px;
+    line-height: 1.8;
+    max-width: 700px;
+}
+
+.quote-section {
+    padding: 85px 0;
+    background: #F5F7FA;
+}
+
+.quote-card {
+    background: #fff;
+    border: 1px solid #E7EAF0;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 18px 45px rgba(7,26,51,.08);
+}
+
+.quote-card h2 {
+    color: #071A33;
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.quote-card > p {
+    color: #6B7280;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.form-label-custom {
+    display: block;
+    color: #253247;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.form-control-custom,
+.form-select-custom {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 52px;
+    padding: 13px 14px;
+    border: 1px solid #E0E4EA;
+    border-radius: 9px;
+    background: #fff;
+    color: #253247;
+    font-size: 15px;
+    outline: none;
+}
+
+.form-control-custom:focus,
+.form-select-custom:focus {
+    border-color: #F4B942;
+    box-shadow: 0 0 0 3px rgba(244,185,66,.13);
+}
+
+textarea.form-control-custom {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.submit-btn {
+    width: 100%;
+    border: 0;
+    border-radius: 9px;
+    padding: 15px;
+    background: #F4B942;
+    color: #071A33;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: .25s ease;
+}
+
+.submit-btn:hover {
+    background: #D99B21;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.info-card {
+    height: 100%;
+    background: #071A33;
+    color: #fff;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 18px 45px rgba(7,26,51,.12);
+}
+
+.info-card h2 {
+    color: #fff;
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.info-card > p {
+    color: rgba(255,255,255,.72);
+    line-height: 1.8;
+    margin-bottom: 28px;
+}
+
+.info-item {
+    padding: 16px 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+}
+
+.info-item small {
+    display: block;
+    color: rgba(255,255,255,.55);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.info-item a,
+.info-item span {
+    color: #fff;
+    text-decoration: none;
+    line-height: 1.6;
+}
+
+.info-item a:hover {
+    color: #F4B942;
+}
+
+.info-alternate {
+    color: #fff;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.info-link {
+    display: inline-block;
+    margin-top: 22px;
+    padding: 13px 22px;
+    background: #F4B942;
+    color: #071A33;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 800;
+}
+
+.info-link:hover {
+    background: #D99B21;
+    color: #fff;
+}
+
+.bottom-cta {
+    padding: 75px 20px;
+    background: #071A33;
+    text-align: center;
+}
+
+.bottom-cta h2 {
+    color: #fff;
+    font-size: clamp(30px, 4vw, 42px);
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.bottom-cta p {
+    color: rgba(255,255,255,.72);
+    max-width: 680px;
+    margin: 0 auto 25px;
+    line-height: 1.8;
+}
+
+.cta-btn {
+    display: inline-block;
+    padding: 14px 26px;
+    border-radius: 8px;
+    background: #F4B942;
+    color: #071A33;
+    font-weight: 800;
+    text-decoration: none;
+    transition: .25s ease;
+}
+
+.cta-btn:hover {
+    background: #D99B21;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+
+    .quote-hero {
+        min-height: 400px;
+    }
+
+    .quote-hero h1 {
+        font-size: 42px;
+    }
+
+    .quote-hero p {
+        font-size: 16px;
+    }
+
+    .quote-section {
+        padding: 60px 18px;
+    }
+
+    .quote-card,
+    .info-card {
+        padding: 25px;
+    }
+}
+
+</style>
+{% endblock %}
+
 
 {% block content %}
 
-<!-- HERO -->
-<section class="py-5 text-white"
-    style="
-    background:
-    linear-gradient(rgba(8,18,35,.84),rgba(8,18,35,.84)),
-    url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1800&q=85')
-    center/cover;
-    ">
-    <div class="container py-5">
-        <span class="badge bg-warning text-dark px-3 py-2 mb-3">
-            FREE QUOTE
-        </span>
-
-        <h1 class="display-4 fw-bold">
-            Request a Free Quote
-        </h1>
-
-        <p class="lead mt-3 mb-0" style="max-width:700px;">
-            Tell us about your requirement and our team will get in touch
-            with you.
-        </p>
-    </div>
-</section>
-
-
-<!-- QUOTE FORM -->
-<section class="py-5">
+<section class="quote-hero">
 
     <div class="container">
 
-        <div class="row justify-content-center">
+        <div class="quote-hero-content">
 
-            <div class="col-lg-8">
+            <div class="section-label mb-3">
+                SEND AN ENQUIRY
+            </div>
 
-                <div class="card border-0 shadow-lg rounded-4">
+            <h1>
+                Tell Us About Your Requirement
+            </h1>
 
-                    <div class="card-body p-4 p-md-5">
+            <p>
+                Share your metal coating or plating requirement with
+                {{ settings.company_name|default:"Balaji Metal Coating LLC" }}.
+            </p>
 
-                        <div class="text-center mb-4">
+        </div>
 
-                            <span class="text-warning fw-bold">
-                                GET STARTED
-                            </span>
+    </div>
 
-                            <h2 class="fw-bold mt-2">
-                                Tell Us What You Need
-                            </h2>
-
-                            <p class="text-muted">
-                                Complete the form below and we'll contact you
-                                regarding your service requirement.
-                            </p>
-
-                        </div>
+</section>
 
 
-                        <form method="POST">
+<section class="quote-section">
 
-                            {% csrf_token %}
+    <div class="container">
 
-                            <div class="row g-4">
+        <div class="row g-5 align-items-stretch">
 
-                                <!-- NAME -->
-                                <div class="col-md-6">
+            <!-- INFORMATION -->
 
-                                    <label class="form-label fw-semibold">
-                                        Full Name *
-                                    </label>
+            <div class="col-lg-5">
 
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        class="form-control form-control-lg"
-                                        placeholder="Enter your full name"
-                                        required
-                                    >
+                <div class="info-card">
 
-                                </div>
+                    <div class="section-label mb-3">
+                        {{ settings.company_name|default:"BALAJI METAL COATING LLC" }}
+                    </div>
 
+                    <h2>
+                        Let's Discuss Your Project
+                    </h2>
 
-                                <!-- PHONE -->
-                                <div class="col-md-6">
-
-                                    <label class="form-label fw-semibold">
-                                        Phone Number *
-                                    </label>
-
-                                    <input
-                                        type="tel"
-                                        name="phone"
-                                        class="form-control form-control-lg"
-                                        placeholder="Enter your phone number"
-                                        required
-                                    >
-
-                                </div>
+                    <p>
+                        Send us your requirement and our team can discuss
+                        the suitable metal coating or plating service.
+                    </p>
 
 
-                                <!-- EMAIL -->
-                                <div class="col-12">
+                    {% if settings and settings.phone %}
 
-                                    <label class="form-label fw-semibold">
-                                        Email Address *
-                                    </label>
+                    <div class="info-item">
 
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        class="form-control form-control-lg"
-                                        placeholder="Enter your email address"
-                                        required
-                                    >
+                        <small>
+                            Phone
+                        </small>
 
-                                </div>
-
-
-                                <!-- SERVICE -->
-                                <div class="col-12">
-
-                                    <label class="form-label fw-semibold">
-                                        Service Required *
-                                    </label>
-
-                                   <select
-    name="service"
-    class="form-select form-select-lg"
-    required
->
-    <option value="">
-        Select a service
-    </option>
-
-    {% for service in services %}
-        <option value="{{ service.name }}">
-            {{ service.name }}
-        </option>
-    {% endfor %}
-</select>
-
-                                </div>
-
-
-                                <!-- MESSAGE -->
-                                <div class="col-12">
-
-                                    <label class="form-label fw-semibold">
-                                        Tell Us About Your Requirement
-                                    </label>
-
-                                    <textarea
-                                        name="message"
-                                        rows="6"
-                                        class="form-control"
-                                        placeholder="Describe the work you need..."
-                                    ></textarea>
-
-                                </div>
-
-
-                                <!-- SUBMIT -->
-                                <div class="col-12">
-
-                                    <button
-                                        type="submit"
-                                        class="btn btn-warning btn-lg
-                                               fw-bold w-100 py-3"
-                                    >
-                                        Submit Quote Request →
-                                    </button>
-
-                                </div>
-
-                            </div>
-
-                        </form>
+                        <a
+                            href="tel:{{ settings.phone|cut:' '|cut:'-' }}"
+                        >
+                            {{ settings.phone }}
+                        </a>
 
                     </div>
+
+                    {% endif %}
+
+
+                    {% if settings and settings.alternate_phone %}
+
+                    <div class="info-item">
+
+                        <small>
+                            Alternate Phone
+                        </small>
+
+                        <p class="info-alternate">
+                            {{ settings.alternate_phone }}
+                        </p>
+
+                    </div>
+
+                    {% endif %}
+
+
+                    {% if settings and settings.whatsapp %}
+
+                    <div class="info-item">
+
+                        <small>
+                            WhatsApp
+                        </small>
+
+                        <a
+                            href="https://wa.me/{{ settings.whatsapp|cut:'+'|cut:' '|cut:'-' }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Chat on WhatsApp
+                        </a>
+
+                    </div>
+
+                    {% endif %}
+
+
+                    {% if settings and settings.email %}
+
+                    <div class="info-item">
+
+                        <small>
+                            Email
+                        </small>
+
+                        <a href="mailto:{{ settings.email }}">
+                            {{ settings.email }}
+                        </a>
+
+                    </div>
+
+                    {% endif %}
+
+
+                    {% if settings and settings.address %}
+
+                    <div class="info-item">
+
+                        <small>
+                            Location
+                        </small>
+
+                        <span>
+                            {{ settings.address }}
+                        </span>
+
+                    </div>
+
+                    {% endif %}
+
+
+                    {% if settings and settings.phone %}
+
+                    <a
+                        href="tel:{{ settings.phone|cut:' '|cut:'-' }}"
+                        class="info-link"
+                    >
+                        Call Now
+                    </a>
+
+                    {% endif %}
 
                 </div>
 
+            </div>
 
-                <!-- TRUST -->
-                <div class="row g-3 mt-4">
 
-                    <div class="col-md-4">
+            <!-- FORM -->
 
-                        <div class="text-center p-3 bg-light rounded-3">
-                            <strong>✓ Professional Team</strong>
-                            <div class="small text-muted mt-1">
-                                Experienced service professionals
-                            </div>
-                        </div>
+            <div class="col-lg-7">
 
+                <div class="quote-card">
+
+                    <div class="section-label">
+                        ENQUIRY FORM
                     </div>
 
-                    <div class="col-md-4">
+                    <h2>
+                        Send Your Enquiry
+                    </h2>
 
-                        <div class="text-center p-3 bg-light rounded-3">
-                            <strong>✓ Quick Response</strong>
-                            <div class="small text-muted mt-1">
-                                Fast communication and support
+                    <p>
+                        Please provide your contact details and select
+                        the metal coating service you are interested in.
+                    </p>
+
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        <div class="row g-4">
+
+                            <!-- NAME -->
+
+                            <div class="col-md-6">
+
+                                <label
+                                    for="quoteName"
+                                    class="form-label-custom"
+                                >
+                                    Full Name *
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="quoteName"
+                                    name="name"
+                                    class="form-control-custom"
+                                    placeholder="Enter your full name"
+                                    autocomplete="name"
+                                    required
+                                >
+
                             </div>
+
+
+                            <!-- PHONE -->
+
+                            <div class="col-md-6">
+
+                                <label
+                                    for="quotePhone"
+                                    class="form-label-custom"
+                                >
+                                    Phone Number *
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="quotePhone"
+                                    name="phone"
+                                    class="form-control-custom"
+                                    placeholder="Enter your phone number"
+                                    autocomplete="tel"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <!-- EMAIL -->
+
+                            <div class="col-12">
+
+                                <label
+                                    for="quoteEmail"
+                                    class="form-label-custom"
+                                >
+                                    Email Address
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="quoteEmail"
+                                    name="email"
+                                    class="form-control-custom"
+                                    placeholder="Enter your email address"
+                                    autocomplete="email"
+                                >
+
+                            </div>
+
+
+                            <!-- SERVICE -->
+
+                            <div class="col-12">
+
+                                <label
+                                    for="quoteService"
+                                    class="form-label-custom"
+                                >
+                                    Service Required *
+                                </label>
+
+                                <select
+                                    id="quoteService"
+                                    name="service"
+                                    class="form-select-custom"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Select a service
+                                    </option>
+
+                                    {% for service in services %}
+
+                                    <option value="{{ service.name }}">
+                                        {{ service.name }}
+                                    </option>
+
+                                    {% endfor %}
+
+                                    <option value="Other">
+                                        Other
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- MESSAGE -->
+
+                            <div class="col-12">
+
+                                <label
+                                    for="quoteMessage"
+                                    class="form-label-custom"
+                                >
+                                    Requirement Details
+                                </label>
+
+                                <textarea
+                                    id="quoteMessage"
+                                    name="message"
+                                    class="form-control-custom"
+                                    placeholder="Tell us about your metal coating requirement..."
+                                ></textarea>
+
+                            </div>
+
+
+                            <!-- SUBMIT -->
+
+                            <div class="col-12">
+
+                                <button
+                                    type="submit"
+                                    class="submit-btn"
+                                >
+                                    Submit Enquiry →
+                                </button>
+
+                            </div>
+
                         </div>
 
-                    </div>
-
-                    <div class="col-md-4">
-
-                        <div class="text-center p-3 bg-light rounded-3">
-                            <strong>✓ Free Quote</strong>
-                            <div class="small text-muted mt-1">
-                                Discuss your requirement with us
-                            </div>
-                        </div>
-
-                    </div>
+                    </form>
 
                 </div>
 
@@ -233,41 +622,46 @@
 </section>
 
 
-<!-- CONTACT CTA -->
-<section class="py-5 bg-light">
+<section class="bottom-cta">
 
-    <div class="container text-center">
+    <div class="container">
 
-        <h2 class="fw-bold">
+        <div class="section-label mb-2">
+            {{ settings.company_name|default:"BALAJI METAL COATING LLC" }}
+        </div>
+
+        <h2>
             Prefer to Talk Directly?
         </h2>
 
-        <p class="text-muted mb-4">
-            Call or WhatsApp our team for assistance.
+        <p>
+            Contact our team directly regarding your metal coating
+            or plating requirement in Dubai, UAE.
         </p>
 
         <div class="d-flex justify-content-center gap-3 flex-wrap">
 
-            {% if settings.phone %}
+            {% if settings and settings.phone %}
 
             <a
-                href="tel:{{ settings.phone }}"
-                class="btn btn-dark btn-lg px-4"
+                href="tel:{{ settings.phone|cut:' '|cut:'-' }}"
+                class="cta-btn"
             >
-                📞 Call Now
+                Call Now
             </a>
 
             {% endif %}
 
 
-            {% if settings.whatsapp %}
+            {% if settings and settings.whatsapp %}
 
             <a
-                href="https://wa.me/{{ settings.whatsapp }}"
+                href="https://wa.me/{{ settings.whatsapp|cut:'+'|cut:' '|cut:'-' }}"
                 target="_blank"
-                class="btn btn-success btn-lg px-4"
+                rel="noopener noreferrer"
+                class="cta-btn"
             >
-                💬 WhatsApp
+                WhatsApp
             </a>
 
             {% endif %}

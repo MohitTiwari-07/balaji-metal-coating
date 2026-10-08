@@ -1,58 +1,78 @@
 {% extends "base.html" %}
-{% load static %}
 
 {% block title %}
-About UAE CARE | Professional Property Maintenance Dubai
+About {{ settings.company_name|default:"Balaji Metal Coating LLC" }} | Dubai, UAE
 {% endblock %}
 
 {% block meta_description %}
-Learn about UAE CARE, a professional home and property maintenance company providing reliable AC, plumbing, electrical, handyman and renovation services across Dubai.
+Learn about {{ settings.company_name|default:"Balaji Metal Coating LLC" }}, a Dubai metal coating company with experience in metal coating and plating services.
 {% endblock %}
+
 
 {% block extra_head %}
 <style>
+
 .about-hero {
-    min-height: 430px;
+    min-height: 450px;
     display: flex;
     align-items: center;
     position: relative;
+    overflow: hidden;
     background:
-        linear-gradient(90deg, rgba(5,12,20,.88), rgba(5,12,20,.50)),
-        url("https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1800&q=85")
-        center/cover no-repeat;
+        radial-gradient(circle at 85% 20%, rgba(244,185,66,.18), transparent 30%),
+        linear-gradient(135deg, #071A33 0%, #0D2748 55%, #071A33 100%);
 }
 
-.about-hero h1 {
-    color: #fff;
-    font-size: clamp(40px, 5vw, 64px);
-    font-weight: 800;
-    line-height: 1.05;
+.about-hero::before {
+    content: "";
+    position: absolute;
+    width: 480px;
+    height: 480px;
+    right: -160px;
+    top: -170px;
+    border: 1px solid rgba(244,185,66,.22);
+    border-radius: 50%;
 }
 
-.about-hero p {
-    color: rgba(255,255,255,.85);
-    font-size: 18px;
-    line-height: 1.7;
-    max-width: 700px;
+.about-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 850px;
 }
 
 .section-label {
-    color: #c99a45;
+    color: #F4B942;
     font-size: 13px;
     font-weight: 800;
     letter-spacing: 2px;
     text-transform: uppercase;
 }
 
+.about-hero h1 {
+    color: #fff;
+    font-size: clamp(40px, 5vw, 66px);
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 22px;
+}
+
+.about-hero p {
+    color: rgba(255,255,255,.82);
+    font-size: 18px;
+    line-height: 1.8;
+    max-width: 720px;
+}
+
 .section-title {
-    color: #101820;
+    color: #071A33;
     font-size: clamp(30px, 4vw, 46px);
     font-weight: 800;
+    line-height: 1.15;
 }
 
 .about-text {
-    color: #666;
-    line-height: 1.85;
+    color: #596579;
+    line-height: 1.9;
     font-size: 16px;
 }
 
@@ -61,42 +81,44 @@ Learn about UAE CARE, a professional home and property maintenance company provi
     height: 480px;
     object-fit: cover;
     border-radius: 20px;
+    background: #F5F7FA;
 }
 
-.stat-card {
-    background: #fff;
-    border: 1px solid #eee;
-    border-radius: 18px;
-    padding: 30px 20px;
-    text-align: center;
+.experience-card {
+    background: #071A33;
+    color: #fff;
+    border-radius: 20px;
+    padding: 35px;
     height: 100%;
-    box-shadow: 0 8px 25px rgba(0,0,0,.05);
+    box-shadow: 0 18px 45px rgba(7,26,51,.12);
 }
 
-.stat-card h3 {
-    color: #c99a45;
-    font-size: 38px;
+.experience-number {
+    color: #F4B942;
+    font-size: 58px;
+    line-height: 1;
     font-weight: 800;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
-.stat-card p {
-    color: #666;
-    margin: 0;
+.experience-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: rgba(255,255,255,.9);
 }
 
 .value-card {
     background: #fff;
-    border: 1px solid #eee;
+    border: 1px solid #E7EAF0;
     border-radius: 18px;
     padding: 30px;
     height: 100%;
-    transition: .3s;
+    transition: .3s ease;
 }
 
 .value-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 18px 35px rgba(0,0,0,.09);
+    transform: translateY(-7px);
+    box-shadow: 0 18px 40px rgba(7,26,51,.09);
 }
 
 .value-icon {
@@ -105,51 +127,108 @@ Learn about UAE CARE, a professional home and property maintenance company provi
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f7f1e7;
-    color: #c99a45;
+    background: rgba(244,185,66,.16);
+    color: #D99B21;
     border-radius: 14px;
-    font-size: 23px;
+    font-size: 22px;
     font-weight: 800;
     margin-bottom: 20px;
 }
 
 .value-card h3 {
+    color: #071A33;
     font-size: 21px;
-    font-weight: 750;
+    font-weight: 800;
+    margin-bottom: 10px;
 }
 
 .value-card p {
-    color: #666;
-    line-height: 1.7;
+    color: #6B7280;
+    line-height: 1.75;
+    margin: 0;
 }
 
-.process-number {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: #101820;
-    color: #fff;
+.team-card {
+    height: 100%;
+    background: #fff;
+    border: 1px solid #E7EAF0;
+    border-radius: 18px;
+    overflow: hidden;
+    transition: .3s ease;
+}
+
+.team-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 18px 40px rgba(7,26,51,.09);
+}
+
+.team-image {
+    height: 300px;
+    background:
+        radial-gradient(circle at 50% 30%, rgba(244,185,66,.16), transparent 35%),
+        #071A33;
+    overflow: hidden;
+}
+
+.team-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.team-placeholder {
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #F4B942;
+    font-size: 60px;
     font-weight: 800;
-    margin-bottom: 18px;
 }
 
-.process-card h3 {
-    font-size: 20px;
-    font-weight: 750;
+.team-content {
+    padding: 25px;
 }
 
-.process-card p {
-    color: #666;
+.team-content h3 {
+    color: #071A33;
+    font-size: 21px;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.team-designation {
+    color: #D99B21;
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.team-description {
+    color: #6B7280;
     line-height: 1.7;
+    margin: 0;
+}
+
+.team-phone {
+    display: inline-block;
+    margin-top: 12px;
+    color: #071A33;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.team-phone:hover {
+    color: #D99B21;
 }
 
 .about-cta {
-    background: #101820;
+    background:
+        radial-gradient(circle at 90% 20%, rgba(244,185,66,.15), transparent 30%),
+        #071A33;
     color: #fff;
-    border-radius: 25px;
+    border-radius: 24px;
     padding: 55px;
 }
 
@@ -159,48 +238,55 @@ Learn about UAE CARE, a professional home and property maintenance company provi
 }
 
 .about-cta p {
-    color: rgba(255,255,255,.75);
-    line-height: 1.7;
+    color: rgba(255,255,255,.72);
+    line-height: 1.8;
 }
 
 .btn-main {
-    background: #c99a45;
-    color: #fff;
+    background: #F4B942;
+    color: #071A33;
     padding: 14px 25px;
     border-radius: 8px;
-    font-weight: 700;
+    font-weight: 800;
     text-decoration: none;
     display: inline-block;
+    transition: .25s;
 }
 
 .btn-main:hover {
-    background: #b48638;
+    background: #D99B21;
     color: #fff;
+    transform: translateY(-2px);
 }
 
 .btn-outline-light-custom {
-    border: 1px solid rgba(255,255,255,.5);
+    border: 1px solid rgba(255,255,255,.55);
     color: #fff;
     padding: 13px 24px;
     border-radius: 8px;
     font-weight: 700;
     text-decoration: none;
     display: inline-block;
+    transition: .25s;
 }
 
 .btn-outline-light-custom:hover {
     background: #fff;
-    color: #101820;
+    color: #071A33;
 }
 
 @media (max-width: 768px) {
 
     .about-hero {
-        min-height: 380px;
+        min-height: 400px;
     }
 
     .about-hero h1 {
         font-size: 42px;
+    }
+
+    .about-hero p {
+        font-size: 16px;
     }
 
     .about-image {
@@ -210,75 +296,89 @@ Learn about UAE CARE, a professional home and property maintenance company provi
     .about-cta {
         padding: 35px 25px;
     }
+
+    .team-image {
+        height: 260px;
+    }
 }
+
 </style>
 {% endblock %}
 
 
 {% block content %}
 
-<!-- HERO -->
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
 <section class="about-hero">
+
     <div class="container">
 
         <div class="about-hero-content">
 
             <div class="section-label mb-3">
-                ABOUT UAE CARE
+                ABOUT {{ settings.company_name|default:"BALAJI METAL COATING LLC" }}
             </div>
 
             <h1>
-                Reliable Property Care.<br>
-                Built Around You.
+                Experience in<br>
+                Metal Coating & Plating
             </h1>
 
-            <p class="mt-3">
-                Professional home and property maintenance services
-                designed to keep Dubai properties safe, comfortable
-                and well maintained.
+            <p>
+                {{ settings.about_text|default:"Balaji Metal Coating LLC is a Dubai-based metal coating company with experience in metal coating services." }}
             </p>
 
         </div>
 
     </div>
+
 </section>
 
 
-<!-- ABOUT -->
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
 <section class="py-5">
+
     <div class="container py-5">
 
         <div class="row align-items-center g-5">
 
-            <div class="col-lg-6">
+            <div class="col-lg-7">
 
                 <div class="section-label mb-2">
                     WHO WE ARE
                 </div>
 
                 <h2 class="section-title mb-4">
-                    Your Trusted Property Maintenance Partner
+                    About {{ settings.company_name|default:"Balaji Metal Coating LLC" }}
                 </h2>
 
-                <p class="about-text">
-                    UAE CARE provides professional maintenance solutions
-                    for homes, villas, apartments, offices and other
-                    properties across Dubai.
-                </p>
+                <div class="about-text">
 
-                <p class="about-text">
-                    From AC repair and plumbing to electrical work,
-                    handyman services, cleaning, painting and renovation,
-                    our goal is to make property maintenance simple,
-                    reliable and convenient.
-                </p>
+                    {% if about_section and about_section.content %}
 
-                <p class="about-text">
-                    We focus on responsive service, transparent
-                    communication and quality workmanship so that
-                    property owners and residents can have confidence
-                    in every job.
-                </p>
+                        {{ about_section.content|linebreaks }}
+
+                    {% elif settings.about_text %}
+
+                        {{ settings.about_text|linebreaks }}
+
+                    {% else %}
+
+                        <p>
+                            {{ settings.company_name|default:"Balaji Metal Coating LLC" }}
+                            is a metal coating company based in Dubai, UAE.
+                        </p>
+
+                    {% endif %}
+
+                </div>
 
                 <div class="mt-4">
 
@@ -291,69 +391,36 @@ Learn about UAE CARE, a professional home and property maintenance company provi
             </div>
 
 
-            <div class="col-lg-6">
+            <div class="col-lg-5">
+
+                {% if about_section and about_section.image %}
 
                 <img
-                    src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=85"
-                    alt="UAE CARE property maintenance"
+                    src="{{ about_section.image.url }}"
+                    alt="{{ about_section.title }}"
                     class="about-image"
                     loading="lazy"
                 >
 
-            </div>
+                {% else %}
 
-        </div>
+                <div
+                    class="about-image d-flex align-items-center justify-content-center"
+                    style="background:linear-gradient(135deg,#071A33,#0D2748);"
+                >
 
-    </div>
-</section>
+                    <span style="
+                        color:#F4B942;
+                        font-size:70px;
+                        font-weight:800;
+                    ">
+                        BM
+                    </span>
 
-
-<!-- STATS -->
-<section class="py-5 bg-light">
-
-    <div class="container py-4">
-
-        <div class="text-center mb-5">
-
-            <div class="section-label mb-2">
-                UAE CARE
-            </div>
-
-            <h2 class="section-title">
-                Service You Can Rely On
-            </h2>
-
-        </div>
-
-
-        <div class="row g-4">
-
-            <div class="col-6 col-lg-3">
-                <div class="stat-card">
-                    <h3>24/7</h3>
-                    <p>Support Availability</p>
                 </div>
-            </div>
 
-            <div class="col-6 col-lg-3">
-                <div class="stat-card">
-                    <h3>10+</h3>
-                    <p>Maintenance Services</p>
-                </div>
-            </div>
+                {% endif %}
 
-            <div class="col-6 col-lg-3">
-                <div class="stat-card">
-                    <h3>100%</h3>
-                    <p>Customer Focus</p>
-                </div>
-            </div>
-
-            <div class="col-6 col-lg-3">
-                <div class="stat-card">
-                    <h3>Dubai</h3>
-                    <p>Service Coverage</p>
-                </div>
             </div>
 
         </div>
@@ -363,7 +430,95 @@ Learn about UAE CARE, a professional home and property maintenance company provi
 </section>
 
 
-<!-- VALUES -->
+<!-- =====================================================
+     EXPERIENCE
+===================================================== -->
+
+<section class="py-5" style="background:#F5F7FA;">
+
+    <div class="container py-5">
+
+        <div class="row align-items-stretch g-4">
+
+            <div class="col-lg-4">
+
+                <div class="experience-card">
+
+                    <div class="section-label">
+                        EXPERIENCE
+                    </div>
+
+                    {% if about_section %}
+
+                    <div class="experience-number">
+                        {{ about_section.experience_years }}+
+                    </div>
+
+                    <div class="experience-title">
+                        {{ about_section.experience_title }}
+                    </div>
+
+                    {% else %}
+
+                    <div class="experience-number">
+                        10+
+                    </div>
+
+                    <div class="experience-title">
+                        Years of Experience
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-8">
+
+                <div class="bg-white h-100 rounded-4 p-4 p-lg-5 border">
+
+                    <div class="section-label mb-2">
+                        OUR EXPERIENCE
+                    </div>
+
+                    <h2 class="section-title mb-3">
+                        Experienced in Dubai
+                    </h2>
+
+                    <div class="about-text">
+
+                        {% if settings.experience_text %}
+
+                            {{ settings.experience_text|linebreaks }}
+
+                        {% else %}
+
+                            <p>
+                                Our company has experience in interior designing
+                                and metal coating work in Dubai.
+                            </p>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     VALUES
+===================================================== -->
+
 <section class="py-5">
 
     <div class="container py-5">
@@ -371,11 +526,11 @@ Learn about UAE CARE, a professional home and property maintenance company provi
         <div class="text-center mb-5">
 
             <div class="section-label mb-2">
-                OUR VALUES
+                OUR APPROACH
             </div>
 
             <h2 class="section-title">
-                Why Customers Choose UAE CARE
+                What We Focus On
             </h2>
 
         </div>
@@ -383,7 +538,7 @@ Learn about UAE CARE, a professional home and property maintenance company provi
 
         <div class="row g-4">
 
-            <div class="col-md-6 col-lg-3">
+            <div class="col-md-6 col-lg-4">
 
                 <div class="value-card">
 
@@ -392,12 +547,12 @@ Learn about UAE CARE, a professional home and property maintenance company provi
                     </div>
 
                     <h3>
-                        Reliable Service
+                        Metal Coating Expertise
                     </h3>
 
                     <p>
-                        We focus on dependable service and clear
-                        communication from enquiry to completion.
+                        Our work is focused on metal coating and plating
+                        requirements across different applications.
                     </p>
 
                 </div>
@@ -405,7 +560,29 @@ Learn about UAE CARE, a professional home and property maintenance company provi
             </div>
 
 
-            <div class="col-md-6 col-lg-3">
+            <div class="col-md-6 col-lg-4">
+
+                <div class="value-card">
+
+                    <div class="value-icon">
+                        ◆
+                    </div>
+
+                    <h3>
+                        Multiple Finishes
+                    </h3>
+
+                    <p>
+                        Our services include gold, silver, copper and nickel
+                        plating along with other metal coating work.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-4">
 
                 <div class="value-card">
 
@@ -414,56 +591,12 @@ Learn about UAE CARE, a professional home and property maintenance company provi
                     </div>
 
                     <h3>
-                        Quality Work
-                    </h3>
-
-                    <p>
-                        Our maintenance approach focuses on practical,
-                        professional and long-lasting solutions.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="col-md-6 col-lg-3">
-
-                <div class="value-card">
-
-                    <div class="value-icon">
-                        ₹
+                        Professional Service
                     </div>
 
-                    <h3>
-                        Transparent Pricing
-                    </h3>
-
                     <p>
-                        Service information and pricing can be managed
-                        directly through our website and CMS.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="col-md-6 col-lg-3">
-
-                <div class="value-card">
-
-                    <div class="value-icon">
-                        24
-                    </div>
-
-                    <h3>
-                        Responsive Support
-                    </h3>
-
-                    <p>
-                        Easy access to phone, WhatsApp and quote
-                        requests whenever property help is needed.
+                        We focus on professional service and clear
+                        communication for metal coating requirements.
                     </p>
 
                 </div>
@@ -477,112 +610,99 @@ Learn about UAE CARE, a professional home and property maintenance company provi
 </section>
 
 
-<!-- PROCESS -->
-<section class="py-5 bg-light">
+<!-- =====================================================
+     TEAM
+===================================================== -->
+
+{% if team_members %}
+
+<section class="py-5" style="background:#F5F7FA;">
 
     <div class="container py-5">
 
         <div class="text-center mb-5">
 
             <div class="section-label mb-2">
-                HOW IT WORKS
+                OUR TEAM
             </div>
 
             <h2 class="section-title">
-                Simple From Start to Finish
+                Meet Our Team
             </h2>
+
+            <p class="text-muted mx-auto" style="max-width:700px; line-height:1.8;">
+                Meet the people responsible for managing and coordinating
+                our work.
+            </p>
 
         </div>
 
 
         <div class="row g-4">
 
-            <div class="col-md-6 col-lg-3">
+            {% for member in team_members %}
 
-                <div class="process-card">
+            <div class="col-md-6 col-lg-4">
 
-                    <div class="process-number">
-                        01
+                <div class="team-card">
+
+                    <div class="team-image">
+
+                        {% if member.image %}
+
+                        <img
+                            src="{{ member.image.url }}"
+                            alt="{{ member.name }}"
+                            loading="lazy"
+                        >
+
+                        {% else %}
+
+                        <div class="team-placeholder">
+                            {{ member.name|first|upper }}
+                        </div>
+
+                        {% endif %}
+
                     </div>
 
-                    <h3>
-                        Contact Us
-                    </h3>
 
-                    <p>
-                        Call, WhatsApp or submit a quote request
-                        through the website.
-                    </p>
+                    <div class="team-content">
+
+                        <h3>
+                            {{ member.name }}
+                        </h3>
+
+                        <div class="team-designation">
+                            {{ member.designation }}
+                        </div>
+
+                        {% if member.description %}
+
+                        <p class="team-description">
+                            {{ member.description }}
+                        </p>
+
+                        {% endif %}
+
+                        {% if member.phone %}
+
+                        <a
+                            href="tel:{{ member.phone|cut:' '|cut:'-' }}"
+                            class="team-phone"
+                        >
+                            ☎ {{ member.phone }}
+                        </a>
+
+                        {% endif %}
+
+                    </div>
 
                 </div>
 
             </div>
 
-
-            <div class="col-md-6 col-lg-3">
-
-                <div class="process-card">
-
-                    <div class="process-number">
-                        02
-                    </div>
-
-                    <h3>
-                        Tell Us Your Need
-                    </h3>
-
-                    <p>
-                        Share your property issue or the maintenance
-                        service you require.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="col-md-6 col-lg-3">
-
-                <div class="process-card">
-
-                    <div class="process-number">
-                        03
-                    </div>
-
-                    <h3>
-                        Get a Solution
-                    </h3>
-
-                    <p>
-                        Our team can understand the requirement and
-                        provide the appropriate service information.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="col-md-6 col-lg-3">
-
-                <div class="process-card">
-
-                    <div class="process-number">
-                        04
-                    </div>
-
-                    <h3>
-                        Get the Job Done
-                    </h3>
-
-                    <p>
-                        Schedule the required maintenance service
-                        for your property.
-                    </p>
-
-                </div>
-
-            </div>
+            {% endfor %}
 
         </div>
 
@@ -590,8 +710,13 @@ Learn about UAE CARE, a professional home and property maintenance company provi
 
 </section>
 
+{% endif %}
 
-<!-- CTA -->
+
+<!-- =====================================================
+     CTA
+===================================================== -->
+
 <section class="pb-5">
 
     <div class="container">
@@ -603,16 +728,16 @@ Learn about UAE CARE, a professional home and property maintenance company provi
                 <div class="col-lg-8">
 
                     <div class="section-label mb-2">
-                        UAE CARE
+                        {{ settings.company_name|default:"BALAJI METAL COATING LLC" }}
                     </div>
 
                     <h2>
-                        Need Professional Maintenance for Your Property?
+                        Have a Metal Coating Requirement?
                     </h2>
 
                     <p class="mb-0">
-                        Get in touch with UAE CARE for reliable
-                        maintenance and property service solutions.
+                        Contact us to discuss your metal coating or plating
+                        requirement in Dubai, UAE.
                     </p>
 
                 </div>
@@ -624,14 +749,15 @@ Learn about UAE CARE, a professional home and property maintenance company provi
                         href="{% url 'request_quote' %}"
                         class="btn-main me-2"
                     >
-                        Request a Quote
+                        Send Enquiry
                     </a>
 
-                    {% if settings %}
+                    {% if settings and settings.whatsapp %}
 
                     <a
-                        href="https://wa.me/{{ settings.whatsapp }}"
+                        href="https://wa.me/{{ settings.whatsapp|cut:'+'|cut:' '|cut:'-' }}"
                         target="_blank"
+                        rel="noopener noreferrer"
                         class="btn-outline-light-custom"
                     >
                         WhatsApp
@@ -648,5 +774,6 @@ Learn about UAE CARE, a professional home and property maintenance company provi
     </div>
 
 </section>
+
 
 {% endblock %}

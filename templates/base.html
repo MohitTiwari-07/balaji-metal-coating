@@ -2,52 +2,56 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
         {% block title %}
-        UAE CARE | Home Maintenance Services Dubai
+        {{ settings.company_name|default:"Balaji Metal Coating LLC" }} | Metal Coating Services Dubai
         {% endblock %}
     </title>
 
     <meta name="description"
-          content="{% block meta_description %}Professional home maintenance, AC, plumbing, electrical, handyman and renovation services across Dubai.{% endblock %}">
+          content="{% block meta_description %}{{ settings.company_name|default:'Balaji Metal Coating LLC' }} provides professional metal coating and plating services in Dubai.{% endblock %}">
 
-    <meta name="robots"
-          content="index, follow">
+    <meta name="robots" content="index, follow">
 
     <link rel="canonical"
           href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
 
-
-    <!-- OPEN GRAPH -->
+    {% if settings.favicon %}
+        <link rel="icon" href="{{ settings.favicon.url }}">
+    {% else %}
+        <link rel="icon" href="{% static 'images/favicon.ico' %}">
+    {% endif %}
 
     <meta property="og:title"
-          content="{% block og_title %}UAE CARE | Home Maintenance Services Dubai{% endblock %}">
+          content="{% block og_title %}{{ settings.company_name|default:'Balaji Metal Coating LLC' }} | Dubai{% endblock %}">
 
     <meta property="og:description"
-          content="{% block og_description %}Professional property maintenance services across Dubai.{% endblock %}">
+          content="{% block og_description %}Professional metal coating services in Dubai.{% endblock %}">
 
-    <meta property="og:type"
-          content="website">
+    <meta property="og:type" content="website">
 
     <meta property="og:url"
           content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
 
     <meta property="og:site_name"
-          content="UAE CARE">
+          content="{{ settings.company_name|default:'Balaji Metal Coating LLC' }}">
 
+    {% if settings.logo %}
+        <meta property="og:image"
+              content="{{ request.scheme }}://{{ request.get_host }}{{ settings.logo.url }}">
+    {% endif %}
 
-    <!-- BOOTSTRAP -->
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-          rel="stylesheet">
-
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
 
     <style>
 
@@ -60,27 +64,29 @@
             --light:#f5f7fa;
             --text:#253247;
             --muted:#6b7280;
+            --border:#e7eaf0;
         }
-
 
         *{
             box-sizing:border-box;
         }
 
-
         html{
             scroll-behavior:smooth;
+            overflow-x:hidden;
         }
 
-
         body{
+            margin:0;
             font-family:Arial,Helvetica,sans-serif;
             color:var(--text);
-            margin:0;
             background:#fff;
             overflow-x:hidden;
         }
 
+        a{
+            transition:.2s ease;
+        }
 
         /* =========================
            TOP BAR
@@ -93,12 +99,18 @@
             font-size:13px;
         }
 
-
         .topbar a{
             color:#fff;
             text-decoration:none;
         }
 
+        .topbar-left,
+        .topbar-right{
+            display:flex;
+            align-items:center;
+            gap:18px;
+            flex-wrap:wrap;
+        }
 
         /* =========================
            NAVBAR
@@ -110,21 +122,27 @@
             z-index:1030;
         }
 
-
         .brand{
-            font-size:26px;
-            font-weight:900;
-            letter-spacing:.5px;
             color:var(--navy);
             text-decoration:none;
-            white-space:nowrap;
+            font-size:20px;
+            font-weight:900;
+            line-height:1.1;
+            display:flex;
+            align-items:center;
+            gap:9px;
         }
 
-
-        .brand span{
-            color:var(--amber);
+        .brand:hover{
+            color:var(--navy);
         }
 
+        .brand-logo{
+            width:42px;
+            height:42px;
+            object-fit:contain;
+            border-radius:6px;
+        }
 
         .navbar-toggler{
             border:1px solid #d9dee7;
@@ -132,65 +150,37 @@
             border-radius:8px;
         }
 
-
         .navbar-toggler:focus{
-            box-shadow:0 0 0 3px rgba(244,185,66,.2);
+            box-shadow:0 0 0 3px rgba(244,185,66,.20);
         }
-
-
-        .navbar-toggler-icon{
-            width:22px;
-            height:22px;
-        }
-
 
         .nav-link{
-            position:relative;
+            color:var(--navy)!important;
             font-weight:600;
-            color:var(--navy) !important;
-            padding:10px 12px !important;
-            transition:.2s ease;
+            padding:10px 12px!important;
         }
-
 
         .nav-link:hover{
-            color:var(--amber-dark) !important;
+            color:var(--amber-dark)!important;
         }
-
-
-        .nav-link.active{
-            color:var(--amber-dark) !important;
-        }
-
-
-        .nav-link.active::after{
-            content:"";
-            position:absolute;
-            left:12px;
-            right:12px;
-            bottom:2px;
-            height:3px;
-            background:var(--amber);
-            border-radius:10px;
-        }
-
 
         /* =========================
            MAIN BUTTON
         ========================= */
 
         .btn-main{
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            min-height:45px;
+            padding:10px 20px;
+            border:0;
+            border-radius:8px;
             background:var(--amber);
             color:var(--navy);
-            border:0;
-            padding:11px 20px;
-            border-radius:9px;
-            font-weight:800;
             text-decoration:none;
-            display:inline-block;
-            transition:.2s ease;
+            font-weight:800;
         }
-
 
         .btn-main:hover{
             background:var(--amber-dark);
@@ -198,27 +188,28 @@
             transform:translateY(-1px);
         }
 
-
         /* =========================
            WHATSAPP
         ========================= */
 
         .whatsapp-btn{
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            min-height:45px;
+            padding:10px 20px;
+            border-radius:8px;
             background:var(--green);
             color:#fff;
-            padding:11px 20px;
-            border-radius:9px;
             text-decoration:none;
             font-weight:700;
-            display:inline-block;
         }
-
 
         .whatsapp-btn:hover{
             color:#fff;
             opacity:.9;
+            transform:translateY(-1px);
         }
-
 
         /* =========================
            FOOTER
@@ -230,59 +221,45 @@
             padding:60px 0 25px;
         }
 
-
         footer h5{
             color:#fff;
             font-weight:800;
             margin-bottom:20px;
         }
 
-
         footer p{
             line-height:1.7;
         }
 
-
         footer a{
             color:#b9c5d3;
             text-decoration:none;
-            transition:.2s ease;
         }
-
 
         footer a:hover{
             color:var(--amber);
         }
 
-
         .footer-brand{
-            font-size:27px;
-            font-weight:900;
             color:#fff;
+            font-size:25px;
+            font-weight:900;
+            line-height:1.2;
         }
-
-
-        .footer-brand span{
-            color:var(--amber);
-        }
-
 
         .footer-link{
             margin-bottom:10px;
         }
 
-
         .footer-contact{
             margin-bottom:12px;
         }
-
 
         .footer-bottom{
             border-top:1px solid rgba(255,255,255,.12);
             margin-top:35px;
             padding-top:20px;
         }
-
 
         /* =========================
            MOBILE CTA
@@ -291,7 +268,6 @@
         .mobile-cta{
             display:none;
         }
-
 
         /* =========================
            RESPONSIVE
@@ -303,24 +279,15 @@
                 padding:15px 0 8px;
             }
 
-
             .nav-link{
-                padding:11px 5px !important;
+                padding:11px 5px!important;
             }
-
-
-            .nav-link.active::after{
-                display:none;
-            }
-
 
             .btn-main{
                 margin-top:8px;
-                text-align:center;
             }
 
         }
-
 
         @media(max-width:768px){
 
@@ -329,33 +296,35 @@
                 text-align:center;
             }
 
-
-            .topbar .container{
-                justify-content:center !important;
+            .topbar-left{
+                justify-content:center;
+                width:100%;
             }
 
-
-            .topbar .top-hours{
+            .topbar-right{
                 display:none;
             }
 
-
             .brand{
-                font-size:23px;
+                font-size:17px;
+                max-width:270px;
             }
 
+            .brand-logo{
+                width:38px;
+                height:38px;
+            }
 
             .mobile-cta{
                 display:flex;
                 position:fixed;
-                bottom:0;
                 left:0;
                 right:0;
+                bottom:0;
                 z-index:9999;
                 background:#fff;
                 box-shadow:0 -4px 18px rgba(0,0,0,.18);
             }
-
 
             .mobile-cta a{
                 flex:1;
@@ -363,25 +332,21 @@
                 text-align:center;
                 color:#fff;
                 text-decoration:none;
-                font-weight:800;
                 font-size:14px;
+                font-weight:800;
             }
-
 
             .mobile-call{
                 background:var(--navy);
             }
 
-
             .mobile-whatsapp{
                 background:var(--green);
             }
 
-
             body{
                 padding-bottom:55px;
             }
-
 
             footer{
                 padding-bottom:75px;
@@ -389,13 +354,16 @@
 
         }
 
-
         @media(max-width:400px){
 
             .brand{
-                font-size:21px;
+                font-size:15px;
             }
 
+            .brand-logo{
+                width:34px;
+                height:34px;
+            }
 
             .mobile-cta a{
                 font-size:13px;
@@ -405,7 +373,6 @@
 
     </style>
 
-
     {% block extra_head %}
     {% endblock %}
 
@@ -413,19 +380,42 @@
 
 
 <body>
-    {% if messages %}
-    <div class="container mt-3">
-        {% for message in messages %}
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="alert"
-                        aria-label="Close">
-                </button>
-            </div>
-        {% endfor %}
+
+
+<!-- =========================
+     MESSAGES
+========================= -->
+
+{% if messages %}
+
+<div class="container mt-3">
+
+    {% for message in messages %}
+
+    <div class="alert
+        {% if message.tags == 'error' %}
+            alert-danger
+        {% else %}
+            alert-success
+        {% endif %}
+        alert-dismissible fade show"
+        role="alert">
+
+        {{ message }}
+
+        <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close">
+        </button>
+
     </div>
+
+    {% endfor %}
+
+</div>
+
 {% endif %}
 
 
@@ -435,30 +425,48 @@
 
 <div class="topbar">
 
-    <div class="container
-                d-flex
-                justify-content-between
-                align-items-center
-                flex-wrap
-                gap-2">
+    <div class="container">
 
-        <span>
-            Professional Home Maintenance Across Dubai
-        </span>
+        <div class="d-flex justify-content-between align-items-center">
+
+            <div class="topbar-left">
+
+                <span>
+                    {{ settings.company_name|default:"Balaji Metal Coating LLC" }}
+                </span>
+
+                {% if settings.address %}
+
+                <span>
+                    📍 {{ settings.address }}
+                </span>
+
+                {% endif %}
+
+            </div>
 
 
-        {% if settings and settings.opening_hours %}
+            <div class="topbar-right">
 
-        <span class="top-hours">
-            🕒 {{ settings.opening_hours }}
-        </span>
+                <a href="tel:+971501097411">
+                    📞 +971 50 109 7411
+                </a>
 
-        {% endif %}
+                {% if settings.email %}
+
+                <a href="mailto:{{ settings.email }}">
+                    ✉️ {{ settings.email }}
+                </a>
+
+                {% endif %}
+
+            </div>
+
+        </div>
 
     </div>
 
 </div>
-
 
 
 <!-- =========================
@@ -469,204 +477,95 @@
 
     <div class="container">
 
+        <a
+            class="brand"
+            href="{% url 'home' %}"
+        >
 
-        <!-- BRAND -->
+            {% if settings.logo %}
 
-        <a class="brand"
-           href="{% url 'home' %}">
+            <img
+                src="{{ settings.logo.url }}"
+                alt="{{ settings.company_name|default:'Balaji Metal Coating LLC' }}"
+                class="brand-logo"
+                width="42"
+                height="42"
+            >
 
-            UAE <span>CARE</span>
+            {% endif %}
+
+            <span>
+                {{ settings.company_name|default:"Balaji Metal Coating LLC" }}
+            </span>
 
         </a>
 
 
-
-        <!-- MOBILE TOGGLER -->
-
-        <button class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#mainNav"
-                aria-controls="mainNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNav"
+            aria-controls="mainNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
 
             <span class="navbar-toggler-icon"></span>
 
         </button>
 
 
+        <div
+            class="collapse navbar-collapse"
+            id="mainNav"
+        >
 
-        <!-- NAVIGATION -->
-
-        <div class="collapse navbar-collapse"
-             id="mainNav">
-
-            <ul class="navbar-nav
-                       ms-auto
-                       align-items-lg-center
-                       gap-lg-1">
-
-
-                <!-- HOME -->
+            <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
 
                 <li class="nav-item">
-
-                    <a class="nav-link {% if request.path == '/' %}active{% endif %}"
-                       href="{% url 'home' %}">
-
+                    <a class="nav-link" href="{% url 'home' %}">
                         Home
-
                     </a>
-
                 </li>
 
-
-
-                <!-- ABOUT -->
-
                 <li class="nav-item">
-
-                    <a class="nav-link {% if '/about/' in request.path %}active{% endif %}"
-                       href="{% url 'about' %}">
-
+                    <a class="nav-link" href="{% url 'home' %}#about">
                         About
-
                     </a>
-
                 </li>
 
-
-
-                <!-- SERVICES -->
-
                 <li class="nav-item">
-
-                    <a class="nav-link {% if '/services/' in request.path %}active{% endif %}"
-                       href="{% url 'services' %}">
-
+                    <a class="nav-link" href="{% url 'services' %}">
                         Services
-
                     </a>
-
                 </li>
 
-
-
-                <!-- SERVICE AREAS -->
-
                 <li class="nav-item">
-
-                    <a class="nav-link {% if '/service-areas/' in request.path %}active{% endif %}"
-                       href="{% url 'service_areas' %}">
-
-                        Areas
-
+                    <a class="nav-link" href="{% url 'home' %}#team">
+                        Our Team
                     </a>
-
                 </li>
 
-
-
-                <!-- PROJECTS -->
-
                 <li class="nav-item">
-
-                    <a class="nav-link {% if '/projects/' in request.path %}active{% endif %}"
-                       href="{% url 'projects' %}">
-
-                        Projects
-
+                    <a class="nav-link" href="{% url 'home' %}#gallery">
+                        Gallery
                     </a>
-
                 </li>
 
-
-
-                <!-- REVIEWS -->
-
                 <li class="nav-item">
-
-                    <a class="nav-link {% if '/reviews/' in request.path %}active{% endif %}"
-                       href="{% url 'reviews' %}">
-
-                        Reviews
-
-                    </a>
-
-                </li>
-
-
-
-                <!-- BLOG -->
-
-                <li class="nav-item">
-
-                    <a class="nav-link {% if '/blog/' in request.path %}active{% endif %}"
-                       href="{% url 'blog' %}">
-
-                        Blog
-
-                    </a>
-
-                </li>
-
-
-
-                <!-- MORE / FAQ -->
-
-                <li class="nav-item">
-
-                    <a class="nav-link {% if '/faqs/' in request.path %}active{% endif %}"
-                       href="{% url 'faqs' %}">
-
-                        FAQs
-
-                    </a>
-
-                </li>
-
-
-
-                <!-- AMC -->
-
-                <li class="nav-item">
-
-                    <a class="nav-link {% if '/maintenance-packages/' in request.path %}active{% endif %}"
-                       href="{% url 'maintenance_packages' %}">
-
-                        AMC
-
-                    </a>
-
-                </li>
-
-
-
-                <!-- CONTACT -->
-
-                <li class="nav-item">
-
-                    <a class="nav-link {% if '/contact/' in request.path %}active{% endif %}"
-                       href="{% url 'contact' %}">
-
+                    <a class="nav-link" href="{% url 'contact' %}">
                         Contact
-
                     </a>
-
                 </li>
-
-
-
-                <!-- QUOTE -->
 
                 <li class="nav-item ms-lg-2">
 
-                    <a class="btn-main"
-                       href="{% url 'request_quote' %}">
-
-                        Request Quote
-
+                    <a
+                        class="btn-main"
+                        href="tel:+971501097411"
+                    >
+                        Call Now
                     </a>
 
                 </li>
@@ -680,14 +579,12 @@
 </nav>
 
 
-
 <!-- =========================
      PAGE CONTENT
 ========================= -->
 
 {% block content %}
 {% endblock %}
-
 
 
 <!-- =========================
@@ -700,276 +597,198 @@
 
         <div class="row g-5">
 
-
-            <!-- ABOUT -->
-
-            <div class="col-lg-4">
+            <div class="col-lg-5">
 
                 <div class="footer-brand mb-3">
 
-                    UAE <span>CARE</span>
+                    {{ settings.company_name|default:"Balaji Metal Coating LLC" }}
 
                 </div>
 
 
+                {% if settings.about_text %}
+
                 <p>
-                    Professional home maintenance and technical
-                    services for residential and commercial properties
-                    across Dubai.
+                    {{ settings.about_text }}
                 </p>
 
+                {% else %}
 
-                <a href="{% url 'request_quote' %}"
-                   class="btn-main mt-2">
+                <p>
+                    {{ settings.company_name|default:"Balaji Metal Coating LLC" }}
+                    provides professional metal coating services in Dubai.
+                </p>
 
-                    Get Free Quote
+                {% endif %}
 
+
+                <a
+                    href="tel:+971501097411"
+                    class="btn-main mt-2"
+                >
+                    Call Now
                 </a>
 
             </div>
 
 
-
-            <!-- QUICK LINKS -->
-
-            <div class="col-sm-6 col-lg-2">
-
-                <h5>Quick Links</h5>
-
-                <div class="footer-link">
-                    <a href="{% url 'home' %}">
-                        Home
-                    </a>
-                </div>
-
-                <div class="footer-link">
-                    <a href="{% url 'about' %}">
-                        About
-                    </a>
-                </div>
-
-                <div class="footer-link">
-                    <a href="{% url 'services' %}">
-                        Services
-                    </a>
-                </div>
-
-                <div class="footer-link">
-                    <a href="{% url 'projects' %}">
-                        Projects
-                    </a>
-                </div>
-
-                <div class="footer-link">
-                    <a href="{% url 'service_areas' %}">
-                        Service Areas
-                    </a>
-                </div>
-
-            </div>
-
-
-
-            <!-- EXPLORE -->
-
             <div class="col-sm-6 col-lg-3">
 
-                <h5>Explore</h5>
+                <h5>
+                    Quick Links
+                </h5>
 
                 <div class="footer-link">
-                    <a href="{% url 'reviews' %}">
-                        Reviews
-                    </a>
+                    <a href="{% url 'home' %}">Home</a>
                 </div>
 
                 <div class="footer-link">
-                    <a href="{% url 'blog' %}">
-                        Blog
-                    </a>
+                    <a href="{% url 'home' %}#about">About</a>
                 </div>
 
                 <div class="footer-link">
-                    <a href="{% url 'faqs' %}">
-                        FAQs
-                    </a>
+                    <a href="{% url 'services' %}">Services</a>
                 </div>
 
                 <div class="footer-link">
-                    <a href="{% url 'maintenance_packages' %}">
-                        AMC Packages
-                    </a>
+                    <a href="{% url 'home' %}#team">Our Team</a>
                 </div>
 
                 <div class="footer-link">
-                    <a href="{% url 'contact' %}">
-                        Contact
-                    </a>
+                    <a href="{% url 'home' %}#gallery">Gallery</a>
+                </div>
+
+                <div class="footer-link">
+                    <a href="{% url 'contact' %}">Contact</a>
                 </div>
 
             </div>
 
 
+          <div class="col-sm-6 col-lg-4">
 
-            <!-- CONTACT -->
+    <h5>
+        Contact Us
+    </h5>
 
-            <div class="col-lg-3">
+    <div class="footer-contact">
+        📞
+        <a href="tel:+971501097411">
+            +971 50 109 7411
+        </a>
+    </div>
 
-                <h5>Contact Us</h5>
+    <div class="footer-contact">
+        📞
+        <a href="tel:+971525272955">
+            +971 52 527 2955
+        </a>
+    </div>
 
-                {% if settings %}
+    <div class="footer-contact">
+        📞
+        <a href="tel:+971545939612">
+            +971 54 593 9612
+        </a>
+    </div>
 
-                    {% if settings.phone %}
+    <div class="footer-contact">
+        💬
+        <a
+            href="https://wa.me/971501097411"
+            target="_blank"
+            rel="noopener"
+        >
+            WhatsApp
+        </a>
+    </div>
 
-                    <div class="footer-contact">
+    {% if settings.email %}
 
-                        📞
+    <div class="footer-contact">
+        ✉️
+        <a href="mailto:{{ settings.email }}">
+            {{ settings.email }}
+        </a>
+    </div>
 
-                        <a href="tel:{{ settings.phone }}">
-                            {{ settings.phone }}
-                        </a>
+    {% endif %}
 
-                    </div>
+    {% if settings.address %}
 
-                    {% endif %}
+    <div class="footer-contact">
+        📍 {{ settings.address }}
+    </div>
 
+    {% endif %}
 
+</div>
 
-                    {% if settings.whatsapp %}
-
-                    <div class="footer-contact">
-
-                        💬
-
-                        <a href="https://wa.me/{{ settings.whatsapp }}"
-                           target="_blank">
-
-                            WhatsApp
-
-                        </a>
-
-                    </div>
-
-                    {% endif %}
-
-
-
-                    {% if settings.email %}
-
-                    <div class="footer-contact">
-
-                        ✉️
-
-                        <a href="mailto:{{ settings.email }}">
-                            {{ settings.email }}
-                        </a>
-
-                    </div>
-
-                    {% endif %}
+</div>
 
 
+<div class="footer-bottom">
 
-                    {% if settings.address %}
+    <div class="row align-items-center">
 
-                    <div class="footer-contact">
+        <div class="col-md-6">
 
-                        📍 {{ settings.address }}
-
-                    </div>
-
-                    {% endif %}
-
-                {% endif %}
-
-            </div>
+            <small>
+                © {% now "Y" %}
+                {{ settings.company_name|default:"Balaji Metal Coating LLC" }}.
+                All Rights Reserved.
+            </small>
 
         </div>
 
+        <div class="col-md-6 text-md-end mt-2 mt-md-0">
 
-
-        <!-- FOOTER BOTTOM -->
-
-        <div class="footer-bottom">
-
-            <div class="row align-items-center">
-
-                <div class="col-md-6">
-
-                    <small>
-                        © {% now "Y" %} UAE CARE.
-                        All Rights Reserved.
-                    </small>
-
-                </div>
-
-
-                <div class="col-md-6 text-md-end mt-2 mt-md-0">
-
-                    <small>
-                        Professional Property Maintenance Services
-                    </small>
-
-                </div>
-
-            </div>
+            <small>
+                Metal Coating Services in Dubai
+            </small>
 
         </div>
 
     </div>
 
-</footer>
+</div>
 
+</div>
+
+</footer>
 
 
 <!-- =========================
      MOBILE CTA
 ========================= -->
 
-{% if settings %}
-
 <div class="mobile-cta">
 
-
-    {% if settings.phone %}
-
-    <a href="tel:{{ settings.phone }}"
-       class="mobile-call">
-
+    <a
+        href="tel:+971501097411"
+        class="mobile-call"
+    >
         📞 Call
-
     </a>
 
-    {% endif %}
 
-
-
-    {% if settings.whatsapp %}
-
-    <a href="https://wa.me/{{ settings.whatsapp }}"
-       target="_blank"
-       class="mobile-whatsapp">
-
+    <a
+        href="https://wa.me/971501097411"
+        target="_blank"
+        rel="noopener"
+        class="mobile-whatsapp"
+    >
         💬 WhatsApp
-
     </a>
-
-    {% endif %}
 
 </div>
 
-{% endif %}
 
-
-
-<!-- BOOTSTRAP JS -->
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
-</script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 {% block extra_js %}
 {% endblock %}
 
-
 </body>
+
 </html>

@@ -1,89 +1,185 @@
 {% extends "base.html" %}
 
 {% block title %}
-Page Not Found | UAE CARE
+Page Not Found | {{ settings.company_name|default:"Balaji Metal Coating LLC" }}
 {% endblock %}
 
 {% block meta_description %}
-The page you are looking for could not be found. Explore UAE CARE home maintenance services in Dubai.
+The page you are looking for could not be found on {{ settings.company_name|default:"Balaji Metal Coating LLC" }}.
 {% endblock %}
+
 
 {% block content %}
 
-<section style="
-    min-height:70vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:60px 20px;
-    background:#f6f7f8;
-">
+<section
+    style="
+        min-height:72vh;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        text-align:center;
+        padding:80px 20px;
+        background:#F5F7FA;
+        position:relative;
+        overflow:hidden;
+    "
+>
 
-    <div style="max-width:700px;">
+    <!-- DECORATIVE CIRCLE -->
+    <div
+        style="
+            position:absolute;
+            width:420px;
+            height:420px;
+            border:1px solid rgba(244,185,66,.20);
+            border-radius:50%;
+            top:-220px;
+            right:-100px;
+        "
+    ></div>
 
-        <div style="
-            font-size:110px;
-            line-height:1;
-            font-weight:800;
-            color:#d4af37;
-            margin-bottom:15px;
-        ">
+
+    <div
+        style="
+            position:relative;
+            z-index:2;
+            max-width:720px;
+            width:100%;
+        "
+    >
+
+        <!-- LABEL -->
+        <div
+            style="
+                display:inline-block;
+                color:#D99B21;
+                font-size:13px;
+                font-weight:800;
+                letter-spacing:2px;
+                margin-bottom:15px;
+                text-transform:uppercase;
+            "
+        >
+            {{ settings.company_name|default:"BALAJI METAL COATING LLC" }}
+        </div>
+
+
+        <!-- 404 -->
+        <div
+            style="
+                font-size:clamp(90px,15vw,150px);
+                line-height:.9;
+                font-weight:900;
+                color:#071A33;
+                letter-spacing:-5px;
+                margin-bottom:20px;
+            "
+        >
             404
         </div>
 
-        <h1 style="
-            font-size:42px;
-            color:#101820;
-            margin:0 0 15px;
-        ">
+
+        <!-- TITLE -->
+        <h1
+            style="
+                font-size:clamp(32px,5vw,48px);
+                font-weight:800;
+                color:#071A33;
+                margin:0 0 18px;
+            "
+        >
             Page Not Found
         </h1>
 
-        <p style="
-            color:#68727d;
-            font-size:18px;
-            line-height:1.7;
-            margin-bottom:30px;
-        ">
+
+        <!-- DESCRIPTION -->
+        <p
+            style="
+                color:#6B7280;
+                font-size:17px;
+                line-height:1.8;
+                max-width:620px;
+                margin:0 auto 32px;
+            "
+        >
             Sorry, the page you are looking for doesn't exist or may have
-            been moved. Let's get you back to UAE CARE.
+            been moved. You can return to our website or explore our
+            metal coating services.
         </p>
 
-        <div style="
-            display:flex;
-            justify-content:center;
-            gap:12px;
-            flex-wrap:wrap;
-        ">
 
-            <a href="{% url 'home' %}"
-               style="
+        <!-- BUTTONS -->
+        <div
+            style="
+                display:flex;
+                justify-content:center;
+                gap:12px;
+                flex-wrap:wrap;
+            "
+        >
+
+            <a
+                href="{% url 'home' %}"
+                style="
                     display:inline-block;
-                    padding:14px 25px;
-                    background:#d4af37;
-                    color:#101820;
+                    padding:14px 26px;
+                    background:#F4B942;
+                    color:#071A33;
                     text-decoration:none;
                     border-radius:8px;
                     font-weight:800;
-               ">
+                    transition:.25s ease;
+                "
+            >
                 Back to Home
             </a>
 
-            <a href="{% url 'services' %}"
-               style="
+
+            <a
+                href="{% url 'services' %}"
+                style="
                     display:inline-block;
-                    padding:14px 25px;
-                    background:#101820;
+                    padding:14px 26px;
+                    background:#071A33;
                     color:#fff;
                     text-decoration:none;
                     border-radius:8px;
                     font-weight:800;
-               ">
+                    transition:.25s ease;
+                "
+            >
                 View Services
             </a>
 
         </div>
+
+
+        <!-- CONTACT -->
+        {% if settings and settings.phone %}
+
+        <div
+            style="
+                margin-top:35px;
+                color:#6B7280;
+                font-size:14px;
+            "
+        >
+            Need assistance?
+
+            <a
+                href="tel:{{ settings.phone }}"
+                style="
+                    color:#071A33;
+                    font-weight:700;
+                    text-decoration:none;
+                "
+            >
+                {{ settings.phone }}
+            </a>
+
+        </div>
+
+        {% endif %}
 
     </div>
 
