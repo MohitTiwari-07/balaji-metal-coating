@@ -7,3 +7,4 @@ __pycache__/
 config/config/
 config/manage.py
 staticfiles/
+render_core_backup.json
